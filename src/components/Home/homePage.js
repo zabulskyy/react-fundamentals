@@ -4,11 +4,16 @@ import {Link} from 'react-router';
 class HomePage extends React.Component{
   render(){
     return (
-      <div className="jumbotron">
-        <h1> All works</h1>
-        <p> Random text, bla-bla</p>
+      <div>
+        <h1> A simple courses application </h1>
+        <h3> Create, delete, save and share your courses</h3>
+        <br/>
         <Link to="about" className="btn btn-primary btn-lg"> Learn more</Link>
+        <br/>
+        <br/>
+        <Link to="courses" className="btn btn-primary btn-lg"> Let's start</Link>
       </div>
+
     );
   }
 }

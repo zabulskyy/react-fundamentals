@@ -1,6 +1,6 @@
 // app template used on every page
 
-import Header from './common/header';
+import Header from './Common/header';
 import React, {PropTypes} from 'react';
 
 class App extends React.Component{
@@ -8,7 +8,9 @@ class App extends React.Component{
     return (
       <div className="container-fluid">
         <Header/>
-        {this.props.children}
+          <div className="field">
+            {this.props.children}
+          </div>
       </div>
     );
   }
