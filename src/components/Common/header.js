@@ -7,8 +7,8 @@ const Header = () => {
       <IndexLink to="/" className="header-link" activeClassName="active">Home</IndexLink>
       <Link to="/courses" className="header-link" activeClassName="active">Courses</Link>
       <Link to="/about" className="header-link" activeClassName="active">About</Link>
-      <Link to="/login" className="header-link header-link-right" activeClassName="active">Login</Link>
-      <Link to="/register" className="header-link header-link-right" activeClassName="active">Register</Link>
+      <Link to="/login" className="header-link header-link-right" activeClassName="active">Login / Register</Link>
+      // TODO disable ^ and show profile when logged in
     </nav>
   );
 };

@@ -1,7 +1,6 @@
 {
   "name": "pluralsight-redux-starter",
   "version": "1.0.0",
-  "description": "Starter kit for React and Redux Pluralsight course by Cory House",
   "scripts": {
     "prestart": "babel-node tools/startMessage.js",
     "start": "npm-run-all --parallel test:watch open:src lint:watch",
@@ -16,9 +15,10 @@
   "dependencies": {
     "babel-polyfill": "6.8.0",
     "bootstrap": "3.3.6",
+    "firebase": "^4.3.0",
     "jquery": "2.2.3",
-    "react": "15.0.2",
-    "react-dom": "15.0.2",
+    "react": "^15.0.2",
+    "react-dom": "^15.0.2",
     "react-redux": "4.4.5",
     "react-router": "2.4.0",
     "react-router-redux": "4.0.4",
@@ -73,5 +73,6 @@
     "url": "https://github.com/coryhouse/pluralsight-redux-starter/issues"
   },
   "homepage": "https://github.com/coryhouse/pluralsight-redux-starter#readme",
-  "main": "webpack.config.dev.js"
+  "main": "webpack.config.dev.js",
+  "description": ""
 }
