@@ -8,9 +8,9 @@ const Header = () => {
       <Link to="/courses" className="header-link" activeClassName="active">Courses</Link>
       <Link to="/about" className="header-link" activeClassName="active">About</Link>
       <Link to="/login" className="header-link header-link-right" activeClassName="active">Login / Register</Link>
-      // TODO disable ^ and show profile when logged in
     </nav>
   );
 };
 
+ // TODO disable ^ and show profile when logged in
 export default Header;

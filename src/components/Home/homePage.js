@@ -5,13 +5,12 @@ class HomePage extends React.Component{
   render(){
     return (
       <div>
-        <h1> A simple courses application </h1>
+        <h1 className="header-text"> A simple courses application </h1>
         <h3> Create, delete, save and share your courses</h3>
         <br/>
-        <Link to="about" className="btn btn-primary btn-lg"> Learn more</Link>
+        <Link to="about" className="bttn bttn-primary"> Learn more</Link>
         <br/>
-        <br/>
-        <Link to="courses" className="btn btn-primary btn-lg"> Let's start</Link>
+        <Link to="courses" className="bttn bttn-primary"> Let's start</Link>
       </div>
 
     );

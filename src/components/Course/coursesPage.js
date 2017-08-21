@@ -15,7 +15,7 @@ class CoursePage extends React.Component {
   render() {
     return (
       <div>
-        <h1>Courses</h1>
+        <h1 className="header-text">Courses</h1>
         {this.props.courses.map(this.courseRow)}
       </div>
     );
