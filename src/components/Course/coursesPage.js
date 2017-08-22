@@ -1,22 +1,27 @@
+import AuthHoC from '../Authentication/AuthHoC.js';
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as courseActions from '../../actions/courseActions';
 import { bindActionCreators } from 'redux';
+import { Link, IndexLink } from 'react-router';
 
 class CoursePage extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-  }
-
-  courseRow(course, index){
-    return <div key={index}>{course.title}</div>;
-  }
+  // constructor(props, context) {
+  //   super(props, context);
+  // }
 
   render() {
+    const { firebaseUser } = this.props;
     return (
       <div>
         <h1 className="header-text">Courses</h1>
-        {this.props.courses.map(this.courseRow)}
+        <h3 className={firebaseUser ? "hide" : ""}>
+          Only logged users can view Courses
+           <br/>
+        </h3>
+          <Link to="/authentication" className={firebaseUser ? "hide" : ""} activeClassName="active">
+            Login or Register to view Courses
+          </Link>
       </div>
     );
   }
@@ -24,7 +29,8 @@ class CoursePage extends React.Component {
 
 CoursePage.propTypes = {
   courses: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
+  firebaseUser: PropTypes.bool.isRequired,
 };
 
 function mapStateToProps(state, ownProps){
@@ -39,4 +45,4 @@ function mapDispatchToProps(dispatch){
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CoursePage);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthHoC(CoursePage));

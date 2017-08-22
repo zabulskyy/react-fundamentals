@@ -1,80 +1,62 @@
+import AuthHoC from '../Authentication/AuthHoC.js';
 import * as firebase from 'firebase';
-import React from 'react';
+import React, { PropTypes } from 'react';
+import currentUser from  '../../store/userStore';
+import authReducer from '../../reducers/authReducer';
+import { connect } from 'react-redux';
+import { authActionsSetUser } from '../../actions/authActions';
 
 class AuthenticationPage extends React.Component {
-
-  state = {
-    firebaseUser: null,
-  };
-
   setRefEmail = (email) => {
     this.email = email;
   }
-
   setRefPassword = (password) => {
     this.password = password;
   }
-
-  setRefBtnLogin = (btnLogin) => {
-    this.btnLogin = btnLogin;
-  }
-
-  setRefBtnLogout = (btnLogout) => {
-    this.btnLogout = btnLogout;
-  }
-
   onClickLogin = () => {
     const email = this.email.value;
     const pass = this.password.value;
     const auth = firebase.auth();
-
     const promise = auth.signInWithEmailAndPassword(email, pass);
     promise
       .then((user) => {
-        this.setState({ firebaseUser: user });
+        this.props.dispatch(authActionsSetUser(user));
       })
       .catch(e => alert(e.message));
-
   }
-
   onClickRegister = () => {
     const email = this.email.value;
     const pass = this.password.value;
     const auth = firebase.auth();
-
     const promise = auth.createUserWithEmailAndPassword(email, pass);
     promise
-      .then(() => {
-        this.setState({ firebaseUser: user });
+      .then((user) => {
+        this.props.dispatch(authActionsSetUser(user));
       })
       .catch(e => alert(e.message));
-
   }
-
   onClickLogout = () => {
       const promise = firebase.auth().signOut();
       promise
         .then(() => {
-          this.setState({ firebaseUser: null });
+          console.log(user)
+          this.props.dispatch(authActionsSetUser(null));
         })
         .catch(e => alert(e.message));
-
   }
 
   render() {
+    const { firebaseUser } = this.props;
     const {
       onClickLogin,
       onClickRegister,
       onClickLogout,
       setRefEmail,
       setRefPassword,
-      state: {
-        firebaseUser,
-      },
     } = this;
     return (
       <div className="row">
-        <div className={!firebaseUser ? '' : 'hide' }>
+        <div className={firebaseUser ? '' : 'hide' }>
           <h1 className="header-text">Login / Register</h1>
           <br/>
           <div className="form-group">
@@ -90,13 +72,25 @@ class AuthenticationPage extends React.Component {
             </label>
           </div>
         </div>
-        <button onClick={onClickLogin} type="button"  id="btnLogin" className={!firebaseUser ? 'bttn' : 'hide' }>Login</button>
-        <button onClick={onClickRegister} type="button" id="btnRegister" className={!firebaseUser ? 'bttn bttn-primary' : 'hide' }>Register</button>
-        <button onClick={onClickLogout} type="button" id="btnLogout" className={!firebaseUser ? 'hide' : 'bttn'}>Logout</button>
+        <button onClick={onClickLogin} type="button"  id="btnLogin" className={firebaseUser ? 'bttn' : 'hide' }>Login</button>
+        <button onClick={onClickRegister} type="button" id="btnRegister" className={firebaseUser ? 'bttn bttn-primary' : 'hide' }>Register</button>
+        <button onClick={onClickLogout} type="button" id="btnLogout" className={firebaseUser ? 'hide' : 'bttn'}>Logout</button>
       </div>
 
     );
   }
 }
 
-export default AuthenticationPage;
+AuthenticationPage.propTypes = {
+    firebaseUser: PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired,
+
+}
+
+function mapStateToProps(state, ownProps){
+  return {
+    user: state.authReducer
+  };
+}
+
+export default connect(mapStateToProps)(AuthHoC(AuthenticationPage));

@@ -1,8 +1,8 @@
-import {combineReducers} from 'redux';
-import courses from './courseReducer';
+import { combineReducers } from 'redux';
+import authReducer from './authReducer';
 
 const rootReducer = combineReducers({
-  courses
+  authReducer
 });
 
 export default rootReducer;
