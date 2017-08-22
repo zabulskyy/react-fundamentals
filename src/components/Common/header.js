@@ -13,4 +13,6 @@ const Header = () => {
 };
 
  // TODO disable ^ and show profile when logged in
+ // TODO remove all headers except main and login if logged in
+ 
 export default Header;

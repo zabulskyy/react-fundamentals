@@ -5,7 +5,7 @@ class AboutPage extends React.Component{
     return (
       <div>
         <h1 className="header-text"> About</h1>
-        <p> This app uses React, Redux etc.</p>
+        <p> This app uses React, Redux and Firebase.</p>
       </div>
     );
   }
