@@ -1,12 +1,12 @@
 import AuthHoC from '../Authentication/AuthHoC.js';
 import * as firebase from 'firebase';
 import React, { PropTypes } from 'react';
-import currentUser from  '../../store/userStore';
 import authReducer from '../../reducers/authReducer';
 import { connect } from 'react-redux';
 import { authActionsSetUser } from '../../actions/authActions';
 
 class AuthenticationPage extends React.Component {
+
   setRefEmail = (email) => {
     this.email = email;
   }
@@ -56,7 +56,7 @@ class AuthenticationPage extends React.Component {
     } = this;
     return (
       <div className="row">
-        <div className={firebaseUser ? '' : 'hide' }>
+        <div className={!firebaseUser ? '' : 'hide' }>
           <h1 className="header-text">Login / Register</h1>
           <br/>
           <div className="form-group">
@@ -72,9 +72,9 @@ class AuthenticationPage extends React.Component {
             </label>
           </div>
         </div>
-        <button onClick={onClickLogin} type="button"  id="btnLogin" className={firebaseUser ? 'bttn' : 'hide' }>Login</button>
-        <button onClick={onClickRegister} type="button" id="btnRegister" className={firebaseUser ? 'bttn bttn-primary' : 'hide' }>Register</button>
-        <button onClick={onClickLogout} type="button" id="btnLogout" className={firebaseUser ? 'hide' : 'bttn'}>Logout</button>
+        <button onClick={onClickLogin} type="button"  id="btnLogin" className={!firebaseUser ? 'bttn' : 'hide' }>Login</button>
+        <button onClick={onClickRegister} type="button" id="btnRegister" className={!firebaseUser ? 'bttn bttn-primary' : 'hide' }>Register</button>
+        <button onClick={onClickLogout} type="button" id="btnLogout" className={!firebaseUser ? 'hide' : 'bttn'}>Logout</button>
       </div>
 
     );
@@ -82,9 +82,9 @@ class AuthenticationPage extends React.Component {
 }
 
 AuthenticationPage.propTypes = {
-    firebaseUser: PropTypes.func.isRequired,
+    firebaseUser: PropTypes.object.isRequired,
+    // TODO WTF? func?? not obj
     dispatch: PropTypes.func.isRequired,
-
 }
 
 function mapStateToProps(state, ownProps){

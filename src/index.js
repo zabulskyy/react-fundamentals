@@ -13,6 +13,7 @@ import * as firebase from 'firebase';
 const store = configureStore();
 
 firebase.initializeApp(config.firebase);
+
 render(
   <Provider store={store}>
     <Router history={browserHistory} routes={routes}/>
