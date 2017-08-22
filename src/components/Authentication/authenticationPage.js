@@ -21,7 +21,7 @@ class AuthenticationPage extends React.Component {
     promise
       .then((user) => {
         // console.log(user);
-        this.props.dispatch(authActionsSetUser(user));
+        this.props.dispatch(authActionsSetUser({ email: user.email }));
       })
       .catch(e => alert(e.message));
   }
@@ -32,7 +32,7 @@ class AuthenticationPage extends React.Component {
     const promise = auth.createUserWithEmailAndPassword(email, pass);
     promise
       .then((user) => {
-        this.props.dispatch(authActionsSetUser(user));
+        this.props.dispatch(authActionsSetUser({ email: user.email }));
       })
       .catch(e => alert(e.message));
   }
@@ -40,7 +40,6 @@ class AuthenticationPage extends React.Component {
       const promise = firebase.auth().signOut();
       promise
         .then(() => {
-          console.log(user)
           this.props.dispatch(authActionsSetUser(null));
         })
         .catch(e => alert(e.message));
@@ -60,6 +59,7 @@ class AuthenticationPage extends React.Component {
         <div className={!firebaseUser || true ? '' : 'hide' }>
           <h1 className="header-text">Login / Register</h1>
           <br/>
+          {firebaseUser && <h2>{firebaseUser.email}</h2>}
           <div className="form-group">
             <label>Email
               <br/>
@@ -74,7 +74,7 @@ class AuthenticationPage extends React.Component {
           </div>
         </div>
         <button onClick={onClickLogin} type="button"  id="btnLogin">Login</button>
-        <button onClick={onClickRegister} type="button" id="btnRegister" className={!firebaseUser ? 'bttn bttn-primary' : 'hide' }>Register</button>
+        <button onClick={onClickRegister} type="button" id="btnRegister">Register</button>
         <button onClick={onClickLogout} type="button" id="btnLogout" className={!firebaseUser ? 'hide' : 'bttn'}>Logout</button>
       </div>
 
@@ -94,6 +94,6 @@ function mapStateToProps(state, ownProps){
   };
 }
 
-function mapDispatchToProps()
+// function mapDispatchToProps(){}
 
 export default connect(mapStateToProps)(AuthHoC(AuthenticationPage));

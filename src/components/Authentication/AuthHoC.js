@@ -13,13 +13,13 @@ const AuthHoC = WrappedComponent => class AuthHoC extends React.Component {
   }
 
   render() {
-    return <WrappedComponent {...this.props } firebaseUser = { this.props.user }/>;
+    return <WrappedComponent {...this.props} firebaseUser = { this.props.user }/>;
   }
 };
 
 function mapStateToProps(state, ownProps){
   return {
-    user: state
+    user: state.authReducer
   };
 }
 
