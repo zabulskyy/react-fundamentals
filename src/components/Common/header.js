@@ -8,7 +8,7 @@ class Header extends React.Component{
     super(props);
   }
   static propTypes = {
-   firebaseUser: PropTypes.func.isRequired
+   firebaseUser: PropTypes.object.isRequired
   };
 
   render(){

@@ -20,6 +20,7 @@ class AuthenticationPage extends React.Component {
     const promise = auth.signInWithEmailAndPassword(email, pass);
     promise
       .then((user) => {
+        // console.log(user);
         this.props.dispatch(authActionsSetUser(user));
       })
       .catch(e => alert(e.message));
@@ -56,7 +57,7 @@ class AuthenticationPage extends React.Component {
     } = this;
     return (
       <div className="row">
-        <div className={!firebaseUser ? '' : 'hide' }>
+        <div className={!firebaseUser || true ? '' : 'hide' }>
           <h1 className="header-text">Login / Register</h1>
           <br/>
           <div className="form-group">
@@ -72,7 +73,7 @@ class AuthenticationPage extends React.Component {
             </label>
           </div>
         </div>
-        <button onClick={onClickLogin} type="button"  id="btnLogin" className={!firebaseUser ? 'bttn' : 'hide' }>Login</button>
+        <button onClick={onClickLogin} type="button"  id="btnLogin">Login</button>
         <button onClick={onClickRegister} type="button" id="btnRegister" className={!firebaseUser ? 'bttn bttn-primary' : 'hide' }>Register</button>
         <button onClick={onClickLogout} type="button" id="btnLogout" className={!firebaseUser ? 'hide' : 'bttn'}>Logout</button>
       </div>
@@ -92,5 +93,7 @@ function mapStateToProps(state, ownProps){
     user: state.authReducer
   };
 }
+
+function mapDispatchToProps()
 
 export default connect(mapStateToProps)(AuthHoC(AuthenticationPage));

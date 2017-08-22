@@ -1,17 +1,27 @@
 import React from 'react';
-import currentUser from  '../../store/userStore';
+
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 
 const AuthHoC = WrappedComponent => class AuthHoC extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      firebaseUser: currentUser
-    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps.user);
   }
 
   render() {
-    return <WrappedComponent {...this.props } firebaseUser = { this.state.firebaseUser }/>;
+    return <WrappedComponent {...this.props } firebaseUser = { this.props.user }/>;
   }
 };
 
-export default AuthHoC;
+function mapStateToProps(state, ownProps){
+  return {
+    user: state
+  };
+}
+
+export default compose(connect(mapStateToProps), AuthHoC);
+// export default AuthHoC;
