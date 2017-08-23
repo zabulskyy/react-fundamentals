@@ -20,7 +20,6 @@ class AuthenticationPage extends React.Component {
     const promise = auth.signInWithEmailAndPassword(email, pass);
     promise
       .then((user) => {
-        // console.log(user);
         this.props.dispatch(authActionsSetUser({ email: user.email }));
       })
       .catch(e => alert(e.message));
@@ -56,10 +55,9 @@ class AuthenticationPage extends React.Component {
     } = this;
     return (
       <div className="row">
-        <div className={!firebaseUser || true ? '' : 'hide' }>
+        <div className={firebaseUser ? 'hide' : '' }>
           <h1 className="header-text">Login / Register</h1>
           <br/>
-          {firebaseUser && <h2>{firebaseUser.email}</h2>}
           <div className="form-group">
             <label>Email
               <br/>
@@ -73,9 +71,9 @@ class AuthenticationPage extends React.Component {
             </label>
           </div>
         </div>
-        <button onClick={onClickLogin} type="button"  id="btnLogin">Login</button>
-        <button onClick={onClickRegister} type="button" id="btnRegister">Register</button>
-        <button onClick={onClickLogout} type="button" id="btnLogout" className={!firebaseUser ? 'hide' : 'bttn'}>Logout</button>
+        <button onClick={onClickLogin}    type="button"  id="btnLogin"    className={firebaseUser ? 'hide' : 'bttn'}>Login</button>
+        <button onClick={onClickRegister} type="button"  id="btnRegister" className={firebaseUser ? 'hide' : 'bttn bttn-primary'}>Register</button>
+        <button onClick={onClickLogout}   type="button"  id="btnLogout"   className={!firebaseUser ? 'hide' : 'bttn'}>Logout</button>
       </div>
 
     );
@@ -83,8 +81,7 @@ class AuthenticationPage extends React.Component {
 }
 
 AuthenticationPage.propTypes = {
-    firebaseUser: PropTypes.object.isRequired,
-    // TODO WTF? func?? not obj
+    firebaseUser: PropTypes.object,
     dispatch: PropTypes.func.isRequired,
 }
 

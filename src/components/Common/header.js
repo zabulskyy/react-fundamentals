@@ -8,7 +8,7 @@ class Header extends React.Component{
     super(props);
   }
   static propTypes = {
-   firebaseUser: PropTypes.object.isRequired
+   firebaseUser: PropTypes.object,
   };
 
   render(){
@@ -16,10 +16,11 @@ class Header extends React.Component{
 
     return (
       <nav className="header">
-        <IndexLink to="/" className="header-link" activeClassName="active">Home</IndexLink>
-        <Link to="/courses" className="header-link" activeClassName="active">Courses</Link>
-        <Link to="/about" className="header-link" activeClassName="active">About</Link>
+        <IndexLink to="/"          className="header-link" activeClassName="active">Home</IndexLink>
+        <Link to="/courses"        className="header-link" activeClassName="active">Courses</Link>
+        <Link to="/about"          className="header-link" activeClassName="active">About</Link>
         <Link to="/authentication" className={firebaseUser ? "hide" : "header-link header-link-right"} activeClassName="active">Login / Register</Link>
+        <Link to="/profile"        className={firebaseUser ? "header-link header-link-right" : "hide"} activeClassName="active">Profile</Link>
       </nav>
   );}
 }

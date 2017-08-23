@@ -7,10 +7,10 @@ class App extends React.Component{
   render(){
     return (
       <div className="container-fluid">
-        <Header/>
-          <div className="field">
-            {this.props.children}
-          </div>
+        <Header />
+        <div className="field">
+          {this.props.children}
+        </div>
       </div>
     );
   }

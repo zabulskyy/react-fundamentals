@@ -1,4 +1,4 @@
-{ 
+{
   "presets": ["react", "es2015"],
   "env": {
     "development": {
@@ -6,6 +6,7 @@
     }
   },
   "plugins": [
-    "babel-plugin-transform-class-properties"
+    "babel-plugin-transform-class-properties",
+    "transform-es2015-destructuring"
   ]
 }

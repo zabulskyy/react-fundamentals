@@ -1,19 +1,22 @@
 import React from 'react';
-
+import { Router } from 'react-router'
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 
 const AuthHoC = WrappedComponent => class AuthHoC extends React.Component {
   constructor(props) {
     super(props);
+    this.redirect = false;
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.user);
+    if (!nextProps.user) {
+      // TODO redirect to authentication page
+    }
   }
 
   render() {
-    return <WrappedComponent {...this.props} firebaseUser = { this.props.user }/>;
+    return <WrappedComponent {...this.props} firebaseUser={ this.props.user }/>;
   }
 };
 

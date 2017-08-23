@@ -28,9 +28,7 @@ class CoursePage extends React.Component {
 }
 
 CoursePage.propTypes = {
-  courses: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired,
-  firebaseUser: PropTypes.bool.isRequired,
+  firebaseUser: PropTypes.object,
 };
 
 function mapStateToProps(state, ownProps){

@@ -5,6 +5,8 @@
   margin: 0 auto;
 }
 
+
+
 .header-link.active{
   color: ghostwhite;
   text-decoration: none;
@@ -80,6 +82,10 @@
 }
 
 .bttn-primary:hover{
+  background: #900045;
+    color: white;
+}
+.bttn-primary:focus{
   background: #900045;
     color: white;
 }
