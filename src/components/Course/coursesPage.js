@@ -1,46 +1,59 @@
-import AuthHoC from '../Authentication/AuthHoC.js';
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-import * as courseActions from '../../actions/courseActions';
-import { bindActionCreators } from 'redux';
-import { Link, IndexLink } from 'react-router';
+import React from 'react';
+import * as firebase from 'firebase';
 
 class CoursePage extends React.Component {
-  // constructor(props, context) {
-  //   super(props, context);
-  // }
+
+  setRefAuthor = (author) => {
+    this.author = author;
+  }
+
+  setRefTitle = (title) => {
+    this.title = title;
+  }
+
+  setRefText = (text) => {
+    this.text = text;
+  }
+
+  saveCourse = () => {
+    const database = firebase.database();
+    const author = this.author.value;
+    const title = this.title.value;
+    const text = this.text.value;
+
+    database.ref('/courses/' + title).set({
+      author: author,
+      title: title,
+      text: text,
+    })
+  }
+
+  log = () => {
+    firebase.database().ref('courses').once('value').then(snapshot => {
+      console.log(snapshot.val())
+    })
+  }
 
   render() {
-    const { firebaseUser } = this.props;
+    const {
+      log,
+      saveCourse,
+      setRefAuthor,
+      setRefTitle,
+      setRefText,
+    } = this;
     return (
       <div>
-        <h1 className="header-text">Courses</h1>
-        <h3 className={firebaseUser ? "hide" : ""}>
-          Only logged users can view Courses
-           <br/>
-        </h3>
-          <Link to="/authentication" className={firebaseUser ? "hide" : ""} activeClassName="active">
-            Login or Register to view Courses
-          </Link>
+        <input className="form-control" type="text" id="author" ref={setRefAuthor}></input>
+        <input className="form-control" type="text" id="title" ref={setRefTitle}></input>
+        <input className="form-control" type="text" id="text" ref={setRefText}></input>
+        <button onClick={saveCourse} type="button" id="btnSaveCourse" className='bttn bttn-primary'>Save</button>
+        <button onClick={log} type="button" className='bttn bttn-primary'>Look</button>
+
       </div>
     );
   }
 }
 
-CoursePage.propTypes = {
-  firebaseUser: PropTypes.object,
-};
 
-function mapStateToProps(state, ownProps){
-  return {
-    courses: state.courses
-  };
-}
-
-function mapDispatchToProps(dispatch){
-  return {
-    actions: bindActionCreators(courseActions, dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AuthHoC(CoursePage));
+export default CoursePage

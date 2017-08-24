@@ -10,6 +10,7 @@ a{
 }
 
 input{
+  display: table;
   margin: 10px 0 10px 0;
   background-color: white;
   border: none;
