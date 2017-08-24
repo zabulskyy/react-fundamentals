@@ -1,28 +1,38 @@
-import AuthHoC from '../Authentication/AuthHoC.js';
-import React, {PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import {Link, IndexLink} from 'react-router';
 
 
-class Header extends React.Component{
+class Header extends Component{
   constructor(props) {
     super(props);
   }
-  static propTypes = {
-   firebaseUser: PropTypes.object,
-  };
 
   render(){
-    const { firebaseUser } = this.props;
+    const { props : {user} } = this;
 
     return (
       <nav className="header">
         <IndexLink to="/"          className="header-link" activeClassName="active">Home</IndexLink>
         <Link to="/courses"        className="header-link" activeClassName="active">Courses</Link>
         <Link to="/about"          className="header-link" activeClassName="active">About</Link>
-        <Link to="/authentication" className={firebaseUser ? "hide" : "header-link header-link-right"} activeClassName="active">Login / Register</Link>
-        <Link to="/profile"        className={firebaseUser ? "header-link header-link-right" : "hide"} activeClassName="active">Profile</Link>
+        <Link to="/login" className={user ? "hide" : "header-link header-link-right"} activeClassName="active">Login</Link>
+        <Link to="/register" className={user ? "hide" : "header-link header-link-right"} activeClassName="active">Register</Link>
+        <Link to="/profile"        className={user ? "header-link header-link-right" : "hide"} activeClassName="active">Profile</Link>
       </nav>
   );}
 }
 
-export default AuthHoC(Header);
+Header.propTypes = {
+  user: PropTypes.object,
+};
+
+const mapDispatchToProps = dispatch => ({
+  dispatch,
+});
+
+const mapStateToProps = state => ({
+  user: state.auth.user,
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -4,9 +4,14 @@ import {
   LOGIN,
   LOGIN_FAILURE,
   LOGIN_SUCCESS,
+
   LOGOUT,
   LOGOUT_FAILURE,
   LOGOUT_SUCCESS,
+
+  REGISTER,
+  REGISTER_FAILURE,
+  REGISTER_SUCCESS,
 } from './constants.js';
 
 // firebase.auth().onAuthStateChanged(function(user) {
@@ -56,7 +61,23 @@ const logout = () => {
 
 const logoutFailure = error => ({ type: LOGOUT_FAILURE, payload: error });
 
-const logoutSuccess = () => ({ type: LOGOUT_SUCCESS });
+const logoutSuccess = user => ({ type: LOGOUT_SUCCESS });
+
+
+// REGISTER ACTIONS
+const register = (email, password) => {
+  return (dispatch) => {
+    dispatch({ type: REGISTER });
+    const auth = firebase.auth();
+    auth.createUserWithEmailAndPassword(email, password)
+      .then(user => dispatch(registerSuccess(user)))
+      .catch(e => dispatch(registerFailure(e)));
+  }
+}
+
+const registerFailure = error => ({ type: REGISTER_FAILURE, payload: error });
+
+const registerSuccess = user => ({ type: REGISTER_SUCCESS, payload: user });
 
 export {
   login,
@@ -65,5 +86,9 @@ export {
 
   logout,
   logoutFailure,
-  logoutSuccess
+  logoutSuccess,
+
+  register,
+  registerFailure,
+  registerSuccess,
 };

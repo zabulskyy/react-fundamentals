@@ -1,9 +1,11 @@
+import { connect } from 'react-redux';
 import { authActionsSetUser } from '../../actions/authActions';
 import AuthHoC from '../Authentication/AuthHoC.js';
+import { logout } from '../../modules/Auth/actions';
 import * as firebase from 'firebase';
-import React, {PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 
-class ProfilePage extends React.Component{
+class Profile extends Component{
 
   constructor(props) {
     super(props);
@@ -24,15 +26,24 @@ class ProfilePage extends React.Component{
 
   render(){
     const {
+      props: {
+        user,
+        onLogout,
+        logoutInProgress,
+        logoutError,
+        }
+      } = this;
+
+    const {
       onClickLogout,
     } = this;
-    const { firebaseUser } = this.props;
     return (
       <div>
-        <div className={firebaseUser ? '' : 'hide'}>
+        <div className={user ? '' : 'hide'}>
           <h1 className="header-text">Your profile</h1>
-          {firebaseUser && <h2>Your email: {firebaseUser.email}</h2>}
-          <button onClick={onClickLogout}   type="button"  id="btnLogout"   className={!firebaseUser ? 'hide' : 'bttn'}>Logout</button>
+          {user && <h2>Hello, {user.email}</h2>}
+          {logoutError && <div>{logoutError.message}</div>}
+          <button onClick={onLogout}   type="button"  id="btnLogout"   className={!user ? 'hide' : 'bttn bttn-primary'}>Logout</button>
         </div>
       </div>
     );
@@ -40,5 +51,27 @@ class ProfilePage extends React.Component{
 }
 
 
+Profile.propTypes = {
+  logoutError: PropTypes.any.isRequired,
+  logoutInProgress: PropTypes.bool.isRequired,
+  onLogout: PropTypes.func.isRequired,
 
-export default AuthHoC(ProfilePage);
+  user: PropTypes.object,
+};
+
+const mapDispatchToProps = dispatch => ({
+  onLogout() {
+    dispatch(logout());
+  },
+
+  dispatch,
+});
+
+const mapStateToProps = state => ({
+  logoutError: state.auth.logoutError,
+  logoutInProgress: state.auth.logoutInProgress,
+
+  user: state.auth.user,
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

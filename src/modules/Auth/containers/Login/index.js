@@ -38,34 +38,41 @@ class Login extends Component {
       props: {
         loginInProgress,
         loginError,
+
         logoutInProgress,
         logoutError,
-        user,
         onLogout,
+
+        user,
       }
     } = this;
     return (
       <div className="row">
-        <h1>Login</h1>
-        <div className="form-group">
-          <label>Email
-            <br/>
-            <input className="form-control" type="email" id="txtEmail" ref={setRefEmail}></input>
-          </label>
-        </div>
-        <div className="form-group">
-          <label>Password
-            <br/>
-            <input className="form-control" type="password" id="txtPassword" ref={setRefPassword}></input>
-          </label>
-        </div>
+        {user && <div><h2>Hello, {user.email}</h2></div>}
+        {!user &&
+        <div>
+          <h1 className="header-text">Login</h1>
+          <br/>
+          <div className="form-group">
+            <label>Email
+              <br/>
+              <input className="form-control" type="email" id="txtEmail" ref={setRefEmail}></input>
+            </label>
+          </div>
+          <div className="form-group">
+            <label>Password
+              <br/>
+              <input className="form-control" type="password" id="txtPassword" ref={setRefPassword}></input>
+            </label>
+          </div>
 
-        {user && <div>{user.email}</div>}
-        {loginInProgress && <span>login in progress</span>}
-        {loginError && <span>{loginError.message}</span>}
-        {logoutError && <div>{logoutError.message}</div>}
-        <button onClick={onClickLogin} type="button" id="btnLogin" className='bttn bttn-primary'>Login</button>
-        <button onClick={onLogout} type="button" id="btnLogout" className='bttn bttn-primary'>Logout</button>
+          {loginInProgress && <span>login in progress...</span>}
+          <br/>
+          {loginError && <span>{loginError.message}</span>}
+          {logoutError && <div>{logoutError.message}</div>}
+          <button onClick={onClickLogin} type="button" id="btnLogin" className='bttn bttn-primary'>Login</button>
+        </div>}
+        {user && <button onClick={onLogout} type="button" id="btnLogout" className='bttn bttn-primary'>Logout</button>}
       </div>
     );
   }
@@ -98,7 +105,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(login(email, password));
   },
   onLogout() {
-    dispatch(logout());
+      dispatch(logout());
   },
   dispatch,
 });

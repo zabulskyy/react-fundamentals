@@ -2,17 +2,27 @@ import {
   LOGIN,
   LOGIN_FAILURE,
   LOGIN_SUCCESS,
+
   LOGOUT,
   LOGOUT_FAILURE,
   LOGOUT_SUCCESS,
+
+  REGISTER,
+  REGISTER_FAILURE,
+  REGISTER_SUCCESS,
 } from './constants.js';
 
 const initialState = {
   user: undefined,
+
   loginInProgress: false,
   loginError: false,
-  loginOutProgress: false,
+
+  logoutInProgress: false,
   logoutError: false,
+
+  registerInProgress: false,
+  registerError: false,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -36,6 +46,17 @@ const authReducer = (state = initialState, action) => {
 
     case LOGOUT_SUCCESS:
       return Object.assign({}, state, { loginOutProgress: false, user: undefined });
+
+
+    case REGISTER:
+      return Object.assign({}, state, { registerInProgress: true, registerError: false });
+
+    case REGISTER_FAILURE:
+      return Object.assign({}, state, { registerInProgress: false, registerError: action.payload });
+
+    case REGISTER_SUCCESS:
+      return Object.assign({}, state, { registerInProgress: false, user: { email: action.payload.email } });
+
 
     default:
       return state;
