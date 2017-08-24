@@ -16,9 +16,9 @@ class Header extends Component{
         <IndexLink to="/"          className="header-link" activeClassName="active">Home</IndexLink>
         <Link to="/courses"        className="header-link" activeClassName="active">Courses</Link>
         <Link to="/about"          className="header-link" activeClassName="active">About</Link>
-        <Link to="/login" className={user ? "hide" : "header-link header-link-right"} activeClassName="active">Login</Link>
-        <Link to="/register" className={user ? "hide" : "header-link header-link-right"} activeClassName="active">Register</Link>
         <Link to="/profile"        className={user ? "header-link header-link-right" : "hide"} activeClassName="active">Profile</Link>
+        <Link to="/register" className={user ? "hide" : "header-link header-link-right"} activeClassName="active">Register</Link>
+        <Link to="/login" className={user ? "hide" : "header-link header-link-right"} activeClassName="active">Login</Link>
       </nav>
   );}
 }
