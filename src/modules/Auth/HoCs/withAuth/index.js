@@ -1,20 +1,19 @@
-import React, { Component} from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 
 const withAuthHoC = WrappedComponent => class withAuthHoC extends Component{
   constructor(props) {
     super(props);
-
-    this.state = {
-      user :
-    }
   }
 
   render() {
-    return <WrappedComponent {...this.props} user={this.state.user} />;
-
+    return <WrappedComponent {...this.props} user={user} />;
   }
+};
+
+withAuthHoC.propTypes = {
+  user: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
