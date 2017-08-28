@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
-import { authActionsSetUser } from '../../actions/authActions';
-import AuthHoC from '../Authentication/AuthHoC.js';
 import { logout } from '../../modules/Auth/actions';
 import * as firebase from 'firebase';
+import hasAuth from '../../modules/Auth/components/hasAuth'
+import withAuthHoC from '../../modules/Auth/containers/HoCs/withAuth';
 import React, {Component, PropTypes} from 'react';
 
 class Profile extends Component{
@@ -74,4 +74,4 @@ const mapStateToProps = state => ({
   user: state.auth.user,
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(withAuthHoC(hasAuth(Profile)));

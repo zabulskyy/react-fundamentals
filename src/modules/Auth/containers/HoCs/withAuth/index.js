@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-
+import { compose } from 'redux';
 
 const withAuthHoC = WrappedComponent => class withAuthHoC extends Component{
   constructor(props) {
@@ -8,7 +8,7 @@ const withAuthHoC = WrappedComponent => class withAuthHoC extends Component{
   }
 
   render() {
-    return <WrappedComponent {...this.props} user={user} />;
+    return <WrappedComponent {...this.props} />;
   }
 };
 
@@ -18,10 +18,13 @@ withAuthHoC.propTypes = {
 
 const mapStateToProps = state => ({
   user: state.auth.user,
-})
-
-const mapDispatchToProps = dispatch => ({
-  dispatch,
 });
+//
+// const mapDispatchToProps = dispatch => ({
+//   dispatch,
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withAuthHoC);
+export default compose(
+  connect(mapStateToProps),
+  withAuthHoC
+);

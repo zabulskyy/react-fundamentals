@@ -42,10 +42,10 @@ const authReducer = (state = initialState, action) => {
       return Object.assign({}, state, { logoutInProgress: true, logoutError: false });
 
     case LOGOUT_FAILURE:
-      return Object.assign({}, state, { loginOutProgress: false, logoutError: action.payload });
+      return Object.assign({}, state, { logoutInProgress: false, logoutError: action.payload });
 
     case LOGOUT_SUCCESS:
-      return Object.assign({}, state, { loginOutProgress: false, user: undefined });
+      return Object.assign({}, state, { logoutInProgress: false, user: undefined });
 
 
     case REGISTER:
