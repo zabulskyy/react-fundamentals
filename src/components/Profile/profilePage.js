@@ -11,10 +11,6 @@ class Profile extends Component{
     super(props);
   }
 
-  static propTypes = {
-   firebaseUser: PropTypes.object.isRequired
-  };
-
   onClickLogout = () => {
       const promise = firebase.auth().signOut();
       promise
@@ -74,4 +70,4 @@ const mapStateToProps = state => ({
   user: state.auth.user,
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withAuthHoC(hasAuth(Profile)));
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

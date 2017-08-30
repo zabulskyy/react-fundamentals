@@ -12,6 +12,8 @@ import {
   UPDATE,
   UPDATE_SUCCESS,
   UPDATE_FAILURE,
+
+  GET_TODOLIST
 } from './constants.js';
 
 // hierarchy:
@@ -62,12 +64,20 @@ const push = (todo) => {
     const userKey = firebase.auth().currentUser.uid;
     const text = todo.text;
     const todoRef = database.ref('/todo/').push();
-    todoRef.set({
+
+    const todoObject = {
       user : userKey,
       text : text,
       done : false,
       removed : false,
-    })
+    };
+
+    todoRef.set(todoObject);
+
+    const todoKey = todoRef.key;
+    const todoRefInUser = database.ref('/users/' + userKey + '/todolist/' + todoKey);
+    todoRefInUser.set(todoObject);
+
   }
 }
 
@@ -127,6 +137,30 @@ const updateFailure = error => ({ type: UPDATE_FAILURE, payload: error });
 
 const updateSuccess = () => ({ type: UPDATE_SUCCESS });
 
+
+// // GET DATA
+// const getTodolist = () => {
+//   return dispatch => {
+//     dispatch({ type: GET_TODOLIST });
+//
+//     const database = firebase.database();
+//     firebase.database().ref('/users/' + firebase.auth().currentUser.uid + '/todolist').once('value')
+//       .then
+//
+//     // renderTodoItem = (element) => {
+//     //   return <TodoItem done={element.done} text={element.text}/>
+//     // }
+//
+//     // getTodoItems = () => {
+//     //   firebase.database().ref('/users/' + firebase.auth().currentUser.uid + '/todolist')
+//     //     .once('value')
+//     //     .then(snapshot => {
+//     //       this.todoList = snapshot.val()
+//     //     })
+//     //     .catch(e => alert(e.message))
+//     //   }
+//   }
+// }
 
 export {
   push,

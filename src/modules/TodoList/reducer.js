@@ -22,6 +22,8 @@ const initialState = {
 
   updateInProgress: false,
   updateError: false,
+
+  // todoLost: {}
 };
 
 const firebaseReducer = (state = initialState, action) => {

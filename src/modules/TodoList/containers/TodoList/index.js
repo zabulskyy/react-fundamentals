@@ -1,25 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { push, remove, update } from '../../actions';
-// import { TodoItem } from '../../components/TodoItem';
+import TodoItem  from '../../components/TodoItem';
+import * as firebase from 'firebase';
 
 class TodoList extends Component {
-  //
-  // setRefEmail = (email) => {
-  //   this.email = email;
-  // }
-  // setRefPassword = (password) => {
-  //   this.password = password;
-  // }
-  //
-  //
-  // onClickLogin = () => {
-  //   const { onLogin } = this.props;
-  //   const email = this.email.value;
-  //   const password = this.password.value;
-  //
-  //   onLogin(email, password);
-  // }
+
+  constructor(props){
+    super(props);
+    this.state = {
+      todoList: { },
+      arrTodoList: [],
+    }
+  }
 
   setRefInput = (input) => {
     this.input = input;
@@ -43,83 +36,79 @@ class TodoList extends Component {
       this.createTask();
   }
 
+  getTodoItems = () => {
+        firebase.database().ref('/users/' + firebase.auth().currentUser.uid + '/todolist')
+          .once('value')
+          .then(snapshot => {
+            this.setState({ todoList : snapshot.val() })
+          })
+          .catch(e => alert(e.message))
+        }
+
+  renderTodoItem = (text, done, index) => {
+      return <TodoItem key={index} text={text} done={done} />
+    }
+
+  objTodoToArrTodo = (objTodo) => {
+    var newArr = []
+    for (var key in objTodo){
+      newArr.push([objTodo[key].text, objTodo[key].done]);
+    }
+    this.setState({ arrTodoList : newArr });
+  }
+
+
+  log = () => {
+    this.objTodoToArrTodo(this.state.todoList);
+    console.log(this.state.arrTodoList);
+    console.log(this.state.todoList);
+  }
+
   render() {
+    var todoList;
     const {
       createTask,
       createTaskWithKey,
       setRefInput,
       setRefSubmit,
+      renderTodoItem,
+      getTodoItems,
+      log,
+      objTodoToArrTodo,
       props : {
         user
       },
     } = this;
-
     return (
       <div className="row">
-        { user && <div>
-          <input onKeyDown={e => createTaskWithKey(e.keyCode)} placeholder="type your task here..." type="text" ref={setRefInput}></input>
-          <button onClick={createTask} className="bttn bttn-plus" ref={setRefSubmit}>+</button>
-        </div>}
+        { user &&
+        <div>
+          <div>
+            <input onKeyDown={e => createTaskWithKey(e.keyCode)} placeholder="type your task here..." type="text" ref={setRefInput}></input>
+            <button onClick={createTask} className="bttn bttn-plus" ref={setRefSubmit}>+</button>
+          </div>
+          <div id="todoPlaceHolder">
+            <button onClick={getTodoItems}>READ</button>
+            <button onClick={log}>SHOW</button>
+          </div>
+          {this.state.arrTodoList.map((i, index) => renderTodoItem(i[0], i[1], index))}
+        </div>
+        }
       </div>
     );
   }
-
-    // {user && <div><h2>Hello, {user.email}</h2></div>}
-    // {!user &&
-    // <div>
-    //   <h1 className="header-text">Login</h1>
-    //   <br/>
-    //   <div className="form-group">
-    //     <label>Email
-    //       <br/>
-    //       <input className="form-control" type="email" id="txtEmail" ref={setRefEmail}></input>
-    //     </label>
-    //   </div>
-    //   <div className="form-group">
-    //     <label>Password
-    //       <br/>
-    //       <input className="form-control" type="password" id="txtPassword" ref={setRefPassword}></input>
-    //     </label>
-    //   </div>
-    //
-    //   {loginInProgress && <span>login in progress...</span>}
-    //   <br/>
-    //   {loginError && <span>{loginError.message}</span>}
-    //   {logoutError && <div>{logoutError.message}</div>}
-    //   <button onClick={onClickLogin} type="button" id="btnLogin" className='bttn bttn-primary'>Login</button>
-    // </div>}
-    // {user && <button onClick={onLogout} type="button" id="btnLogout" className='bttn bttn-primary'>Logout</button>}
 }
 
 TodoList.propTypes = {
-  // loginError: PropTypes.any.isRequired,
-  // loginInProgress: PropTypes.bool.isRequired,
-  // onLogin: PropTypes.func.isRequired,
-  //
-  // logoutError: PropTypes.any.isRequired,
-  // logoutInProgress: PropTypes.bool.isRequired,
-  // onLogout: PropTypes.func.isRequired,
   onPush: PropTypes.func.isRequired,
   user: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
-  // loginError: state.auth.loginError,
-  // loginInProgress: state.auth.loginInProgress,
-  //
-  // logoutError: state.auth.logoutError,
-  // logoutInProgress: state.auth.logoutInProgress,
-  //
    user: state.auth.user,
 })
 
 const mapDispatchToProps = dispatch => ({
-  // onLogin(email, password) {
-  //   dispatch(login(email, password));
-  // },
-  // onLogout() {
-  //     dispatch(logout());
-  // },
   onPush(text){
     dispatch(push(text));
   },

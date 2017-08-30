@@ -27,6 +27,21 @@ input:focus{
   border-bottom: 2px solid darkmagenta;
 }
 
+.todo-done{
+  color: darkgrey;
+  text-decoration: line-through;
+}
+
+.todo-undone{
+  color: black;
+  text-decoration: none;
+}
+
+.todo-item{
+  background: #ffccff;
+  
+}
+
 .header-link.active{
   color: ghostwhite;
   text-decoration: none;

@@ -72,6 +72,7 @@ const register = (email, password) => {
     auth.createUserWithEmailAndPassword(email, password)
       .then(user => dispatch(registerSuccess(user)))
       .catch(e => dispatch(registerFailure(e)));
+    // TODO ADD USER TO DATABASE
   }
 }
 
