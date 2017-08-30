@@ -93,7 +93,7 @@ class TodoList extends Component {
           </div>
           {this.state.arrTodoList.map((i, index) => renderTodoItem(i[0], i[1], index))}
         </div>
-        }
+        } 
       </div>
     );
   }
