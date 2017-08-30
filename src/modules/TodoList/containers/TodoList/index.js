@@ -1,15 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { push, remove, update } from '../../actions';
+import { getTodoList, push, remove, update } from '../../actions';
 import TodoItem  from '../../components/TodoItem';
 import * as firebase from 'firebase';
+
 
 class TodoList extends Component {
 
   constructor(props){
     super(props);
     this.state = {
-      todoList: { },
       arrTodoList: [],
     }
   }
@@ -34,49 +34,36 @@ class TodoList extends Component {
   createTaskWithKey = (key) => {
     if (key === 13)
       this.createTask();
+
   }
-
-  getTodoItems = () => {
-        firebase.database().ref('/users/' + firebase.auth().currentUser.uid + '/todolist')
-          .once('value')
-          .then(snapshot => {
-            this.setState({ todoList : snapshot.val() })
-          })
-          .catch(e => alert(e.message))
-        }
-
-  renderTodoItem = (text, done, index) => {
-      return <TodoItem key={index} text={text} done={done} />
-    }
-
-  objTodoToArrTodo = (objTodo) => {
-    var newArr = []
-    for (var key in objTodo){
-      newArr.push([objTodo[key].text, objTodo[key].done]);
-    }
-    this.setState({ arrTodoList : newArr });
-  }
-
-
-  log = () => {
-    this.objTodoToArrTodo(this.state.todoList);
-    console.log(this.state.arrTodoList);
-    console.log(this.state.todoList);
-  }
+  //
+  // getTodoItems = () => {
+  //     var newArr = [];
+  //     firebase.database().ref('/users/' + firebase.auth().currentUser.uid + '/todolist')
+  //       .once('value')
+  //       .then(snapshot => {
+  //           for (var elem in snapshot.val()){
+  //             var text = snapshot.val()[elem].text;
+  //             var done = snapshot.val()[elem].done;
+  //             var key =  elem;
+  //             newArr.push(<TodoItem key={key} text={text} done={done} />)
+  //           }
+  //        })
+  //       .catch(e => alert(e.message))
+  //     this.setState({ arrTodoList : newArr })  //TODO
+  //   }
 
   render() {
-    var todoList;
     const {
       createTask,
       createTaskWithKey,
       setRefInput,
       setRefSubmit,
-      renderTodoItem,
-      getTodoItems,
-      log,
-      objTodoToArrTodo,
+      // getTodoItems,
       props : {
-        user
+        user,
+        todoList,
+        onGetTodoList,
       },
     } = this;
     return (
@@ -87,30 +74,35 @@ class TodoList extends Component {
             <input onKeyDown={e => createTaskWithKey(e.keyCode)} placeholder="type your task here..." type="text" ref={setRefInput}></input>
             <button onClick={createTask} className="bttn bttn-plus" ref={setRefSubmit}>+</button>
           </div>
+          <button onClick={onGetTodoList}>PRESS ME</button>
           <div id="todoPlaceHolder">
-            <button onClick={getTodoItems}>READ</button>
-            <button onClick={log}>SHOW</button>
+              {todoList.map(i => <TodoItem key={i[0]} text={i[1]} done={i[2]} />)}
           </div>
-          {this.state.arrTodoList.map((i, index) => renderTodoItem(i[0], i[1], index))}
         </div>
-        } 
+        }
       </div>
     );
   }
 }
 
 TodoList.propTypes = {
+  onGetTodoList: PropTypes.func.isRequired,
+  todoList: PropTypes.array.isRequired,
   onPush: PropTypes.func.isRequired,
   user: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
    user: state.auth.user,
+   todoList: state.todo.todoList
 })
 
 const mapDispatchToProps = dispatch => ({
   onPush(text){
     dispatch(push(text));
+  },
+  onGetTodoList(){
+    dispatch(getTodoList());
   },
   dispatch,
 });

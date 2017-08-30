@@ -14,27 +14,11 @@ import {
   REGISTER_SUCCESS,
 } from './constants.js';
 
-// firebase.auth().onAuthStateChanged(function(user) {
-//   if (user) {
-//     // User is signed in.
-//     var displayName = user.displayName;
-//     var email = user.email;
-//     var emailVerified = user.emailVerified;
-//     var photoURL = user.photoURL;
-//     var isAnonymous = user.isAnonymous;
-//     var uid = user.uid;
-//     var providerData = user.providerData;
-//     // ...
-//   } else {
-//     // User is signed out.
-//     // ...
-//   }
-// });
-
 
 // LOGIN ACTIONS
 const login = (email, password) => {
   return (dispatch) => {
+    
     dispatch({ type: LOGIN });
 
     const auth = firebase.auth();
@@ -72,7 +56,6 @@ const register = (email, password) => {
     auth.createUserWithEmailAndPassword(email, password)
       .then(user => dispatch(registerSuccess(user)))
       .catch(e => dispatch(registerFailure(e)));
-    // TODO ADD USER TO DATABASE
   }
 }
 

@@ -10,6 +10,10 @@ import {
   UPDATE,
   UPDATE_FAILURE,
   UPDATE_SUCCESS,
+
+  GET_TODOLIST,
+  GET_TODOLIST_FAILURE,
+  GET_TODOLIST_SUCCESS,
 } from './constants.js';
 
 const initialState = {
@@ -23,10 +27,13 @@ const initialState = {
   updateInProgress: false,
   updateError: false,
 
-  // todoLost: {}
+  gettingTodoListInProgress: false,
+  gettingTodoListError: false,
+
+  todoList: [],
 };
 
-const firebaseReducer = (state = initialState, action) => {
+const todoListReducer = (state = initialState, action) => {
   switch (action.type) {
 
     case PUSH:
@@ -59,9 +66,18 @@ const firebaseReducer = (state = initialState, action) => {
       return Object.assign({}, state, { updateInProgress: false });
 
 
+    case GET_TODOLIST:
+      return Object.assign({}, state, { gettingTodoListInProgress: true})
+
+    case GET_TODOLIST_FAILURE:
+      return Object.assign({}, state, { gettingTodoListInProgress: false, gettingTodoListError: true })
+
+    case GET_TODOLIST_SUCCESS:
+      return Object.assign({}, state, { gettingTodoListInProgress: false, todoList: action.payload  })
+
     default:
       return state;
   }
 }
 
-export default firebaseReducer;
+export default todoListReducer;

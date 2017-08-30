@@ -1,5 +1,6 @@
 import * as firebase from 'firebase';
 
+
 import {
   PUSH,
   PUSH_SUCCESS,
@@ -13,7 +14,9 @@ import {
   UPDATE_SUCCESS,
   UPDATE_FAILURE,
 
-  GET_TODOLIST
+  GET_TODOLIST,
+  GET_TODOLIST_FAILURE,
+  GET_TODOLIST_SUCCESS,
 } from './constants.js';
 
 // hierarchy:
@@ -112,9 +115,10 @@ const removeSuccess = () => ({ type: REMOVE_SUCCESS });
 
 // UPDATE
 const update = (todoKey, what) => {
+  debugger;
   return (dispatch) => {
     dispatch({ type: UPDATE });
-
+    debugger;
     const database = firebase.database();
     const userKey = firebase.auth().currentUser.uid;
     const todoRef = database.ref('/todo/' + todoKey);
@@ -138,29 +142,31 @@ const updateFailure = error => ({ type: UPDATE_FAILURE, payload: error });
 const updateSuccess = () => ({ type: UPDATE_SUCCESS });
 
 
-// // GET DATA
-// const getTodolist = () => {
-//   return dispatch => {
-//     dispatch({ type: GET_TODOLIST });
-//
-//     const database = firebase.database();
-//     firebase.database().ref('/users/' + firebase.auth().currentUser.uid + '/todolist').once('value')
-//       .then
-//
-//     // renderTodoItem = (element) => {
-//     //   return <TodoItem done={element.done} text={element.text}/>
-//     // }
-//
-//     // getTodoItems = () => {
-//     //   firebase.database().ref('/users/' + firebase.auth().currentUser.uid + '/todolist')
-//     //     .once('value')
-//     //     .then(snapshot => {
-//     //       this.todoList = snapshot.val()
-//     //     })
-//     //     .catch(e => alert(e.message))
-//     //   }
-//   }
-// }
+// GET DATA
+const getTodoList = () => {
+  return (dispatch) => {
+    dispatch({ type: GET_TODOLIST });
+
+    var newArr = [];
+    firebase.database().ref('/users/' + firebase.auth().currentUser.uid + '/todolist')
+      .once('value')
+      .then(snapshot => {
+          for (var elem in snapshot.val()){
+            var text = snapshot.val()[elem]["text"];
+            var done = snapshot.val()[elem]["done"];
+            var key =  elem;
+            newArr.push([key, text, done]);
+          }
+          dispatch(getTodoListSuccess(newArr));
+       })
+      .catch(e => dispatch(getTodoListFailure(e)));
+
+  }
+}
+
+const getTodoListFailure = error => ({ type: GET_TODOLIST_FAILURE, payload: error });
+
+const getTodoListSuccess = array => ({ type: GET_TODOLIST_SUCCESS, payload: array });
 
 export {
   push,
@@ -174,4 +180,8 @@ export {
   update,
   updateSuccess,
   updateFailure,
+
+  getTodoList,
+  getTodoListFailure,
+  getTodoListSuccess,
 };
