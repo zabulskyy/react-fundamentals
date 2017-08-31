@@ -11,7 +11,7 @@ class TodoItem extends Component {
 
     return (
       <div className="todo-item">
-        <p className={done ? "todo-done" : "todo-undone"}>{this.props.text}</p>
+        <span className={done ? "todo-done" : "todo-undone"}>{this.props.text}</span>
       </div>
     )
   }

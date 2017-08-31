@@ -32,14 +32,25 @@ input:focus{
   text-decoration: line-through;
 }
 
+.todo-place-holder{
+  border: 1px solid coral;
+  background: #ffedd8;
+  padding: 7px 10px 7px 10px;
+  margin-top: 25px;
+  border-radius: 15px;
+}
+
 .todo-undone{
   color: black;
   text-decoration: none;
 }
 
 .todo-item{
-  background: #ffccff;
-  
+  background: #f3e6e6;
+  margin: 7px 0 7px 0;
+  padding: 7px 20px 7px 20px;
+  border: 1px solid darkmagenta;
+  border-radius: 15px;
 }
 
 .header-link.active{

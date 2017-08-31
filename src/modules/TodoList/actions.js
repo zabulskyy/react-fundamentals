@@ -152,10 +152,14 @@ const getTodoList = () => {
       .once('value')
       .then(snapshot => {
           for (var elem in snapshot.val()){
-            var text = snapshot.val()[elem]["text"];
-            var done = snapshot.val()[elem]["done"];
-            var key =  elem;
-            newArr.push([key, text, done]);
+            if (!snapshot.val()[elem]["removed"]){
+              var text = snapshot.val()[elem]["text"];
+              if (text){
+                var done = snapshot.val()[elem]["done"];
+                var key =  elem;
+                newArr.push([key, text, done]);
+              } 
+            }
           }
           dispatch(getTodoListSuccess(newArr));
        })
