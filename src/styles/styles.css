@@ -27,6 +27,13 @@ input:focus{
   border-bottom: 2px solid darkmagenta;
 }
 
+.x-mark{
+  float:right;
+  color:red;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 .todo-done{
   color: darkgrey;
   text-decoration: line-through;

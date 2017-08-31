@@ -76,7 +76,7 @@ class TodoList extends Component {
           </div>
           <button onClick={onGetTodoList}>PRESS ME</button>
           <div className="todo-place-holder">
-              {todoList.map(i => <TodoItem key={i[0]} text={i[1]} done={i[2]} />)}
+              {todoList.map(i => <TodoItem key={i[0]} text={i[1]} done={i[2]} id={i[3]} />)}
           </div>
         </div>
         }

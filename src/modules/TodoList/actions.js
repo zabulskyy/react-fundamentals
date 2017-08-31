@@ -93,7 +93,6 @@ const pushSuccess = () => ({ type: PUSH_SUCCESS });
 const remove = (todoKey) => {
   return (dispatch) => {
     dispatch({ type: REMOVE });
-
     const database = firebase.database();
     const userKey = firebase.auth().currentUser.uid;
     const todoRef = database.ref('/todo/' + todoKey);
@@ -157,8 +156,9 @@ const getTodoList = () => {
               if (text){
                 var done = snapshot.val()[elem]["done"];
                 var key =  elem;
-                newArr.push([key, text, done]);
-              } 
+                var id =  elem;
+                newArr.push([key, text, done, id]);
+              }
             }
           }
           dispatch(getTodoListSuccess(newArr));
