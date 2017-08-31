@@ -29,9 +29,6 @@ input:focus{
 
 .x-mark{
   float:right;
-  color:red;
-  font-weight: bold;
-  cursor: pointer;
 }
 
 .todo-done{

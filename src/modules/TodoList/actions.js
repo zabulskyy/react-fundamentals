@@ -96,14 +96,12 @@ const remove = (todoKey) => {
     const database = firebase.database();
     const userKey = firebase.auth().currentUser.uid;
     const todoRef = database.ref('/todo/' + todoKey);
-    todoRef.set({
-      removed : true,
-    })
-
     const todoRefInUser = database.ref('/users/' + userKey + '/todolist/' + todoKey);
-    todoRefInUser.set({
-      removed : true,
-    })
+
+    var updates = {};
+    updates["removed"] = true;
+    todoRef.update(updates);
+    todoRefInUser.update(updates);
   }
 }
 
@@ -114,10 +112,8 @@ const removeSuccess = () => ({ type: REMOVE_SUCCESS });
 
 // UPDATE
 const update = (todoKey, what) => {
-  debugger;
   return (dispatch) => {
     dispatch({ type: UPDATE });
-    debugger;
     const database = firebase.database();
     const userKey = firebase.auth().currentUser.uid;
     const todoRef = database.ref('/todo/' + todoKey);
@@ -145,7 +141,6 @@ const updateSuccess = () => ({ type: UPDATE_SUCCESS });
 const getTodoList = () => {
   return (dispatch) => {
     dispatch({ type: GET_TODOLIST });
-
     var newArr = [];
     firebase.database().ref('/users/' + firebase.auth().currentUser.uid + '/todolist')
       .once('value')

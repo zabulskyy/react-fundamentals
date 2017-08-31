@@ -1,12 +1,14 @@
 import { connect } from 'react-redux';
-import { remove, update } from '../../actions';
+import { getTodoList, remove, update } from '../../actions';
 import React, { Component, PropTypes } from 'react';
 
 class TodoItem extends Component {
 
-  onClickRemove = (key) =>{
+  onClickRemove = () =>{
     const { onRemove } = this.props;
+    var key = this.props.id;
     onRemove(key);
+    this.props.onGetTodoList();
   }
 
 
@@ -22,21 +24,24 @@ class TodoItem extends Component {
     return (
       <div className="todo-item">
         <span className={done ? "todo-done" : "todo-undone"}>{this.props.text}</span>
-        <button className="x-mark" onclick={onClickRemove(this.props.id)}>X</button>
+        <button className="x-mark" onClick={onClickRemove}>X</button>
       </div>
     )
   }
 }
 
 const mapStateToProps = state => ({
+    onGetTodoList: PropTypes.func.isRequired,
    user: state.auth.user,
-   todoList: state.todo.todoList
+   todoList: state.todo.todoList,
 })
 
 const mapDispatchToProps = dispatch => ({
   onRemove(key){
-    alert("FUCK");
     dispatch(remove(key));
+  },
+  onGetTodoList(){
+    dispatch(getTodoList());
   },
   dispatch,
 });

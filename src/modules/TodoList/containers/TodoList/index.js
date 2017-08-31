@@ -29,6 +29,7 @@ class TodoList extends Component {
     onPush({
       text : task
     });
+    this.props.onGetTodoList();
   }
 
   createTaskWithKey = (key) => {
@@ -36,22 +37,10 @@ class TodoList extends Component {
       this.createTask();
 
   }
-  //
-  // getTodoItems = () => {
-  //     var newArr = [];
-  //     firebase.database().ref('/users/' + firebase.auth().currentUser.uid + '/todolist')
-  //       .once('value')
-  //       .then(snapshot => {
-  //           for (var elem in snapshot.val()){
-  //             var text = snapshot.val()[elem].text;
-  //             var done = snapshot.val()[elem].done;
-  //             var key =  elem;
-  //             newArr.push(<TodoItem key={key} text={text} done={done} />)
-  //           }
-  //        })
-  //       .catch(e => alert(e.message))
-  //     this.setState({ arrTodoList : newArr })  //TODO
-  //   }
+
+  componentWillMount(){
+    this.props.onGetTodoList();
+  }
 
   render() {
     const {
@@ -59,11 +48,9 @@ class TodoList extends Component {
       createTaskWithKey,
       setRefInput,
       setRefSubmit,
-      // getTodoItems,
       props : {
         user,
         todoList,
-        onGetTodoList,
       },
     } = this;
     return (
@@ -74,7 +61,6 @@ class TodoList extends Component {
             <input onKeyDown={e => createTaskWithKey(e.keyCode)} placeholder="type your task here..." type="text" ref={setRefInput}></input>
             <button onClick={createTask} className="bttn bttn-plus" ref={setRefSubmit}>+</button>
           </div>
-          <button onClick={onGetTodoList}>PRESS ME</button>
           <div className="todo-place-holder">
               {todoList.map(i => <TodoItem key={i[0]} text={i[1]} done={i[2]} id={i[3]} />)}
           </div>
