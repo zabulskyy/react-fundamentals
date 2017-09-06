@@ -1,6 +1,4 @@
 import * as firebase from 'firebase';
-
-
 import {
   PUSH,
   PUSH_SUCCESS,
@@ -57,6 +55,7 @@ todo : {
     ...
 }
 */
+
 
 // PUSH
 const push = (todo) => {
@@ -141,6 +140,12 @@ const updateSuccess = () => ({ type: UPDATE_SUCCESS });
 const getTodoList = () => {
   return (dispatch) => {
     dispatch({ type: GET_TODOLIST });
+
+    if (!firebase.auth().currentUser){
+      return;
+    }
+
+
     var newArr = [];
     firebase.database().ref('/users/' + firebase.auth().currentUser.uid + '/todolist')
       .once('value')

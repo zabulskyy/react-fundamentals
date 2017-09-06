@@ -15,10 +15,25 @@ import {
 } from './constants.js';
 
 
+const lookForUser = () => {
+  return (dispatch) => {
+
+    firebase.auth().onAuthStateChanged( user => {
+      if (user) {
+        dispatch(loginSuccess(user))
+      } else {
+        dispatch(logoutSuccess())
+      }
+
+    });
+
+  }
+}
+
 // LOGIN ACTIONS
 const login = (email, password) => {
   return (dispatch) => {
-    
+
     dispatch({ type: LOGIN });
 
     const auth = firebase.auth();
@@ -67,6 +82,8 @@ export {
   login,
   loginFailure,
   loginSuccess,
+
+  lookForUser,
 
   logout,
   logoutFailure,

@@ -1,9 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-
-import { login, logout } from '../../actions';
+import withAuth from '../HoCs/withAuth';
+import { login, logout, lookForUser } from '../../actions';
 
 class Login extends Component {
+
+  componentWillMount(){
+    const { onLook } = this.props;
+    onLook();
+  }
 
   setRefEmail = (email) => {
     this.email = email;
@@ -38,11 +43,9 @@ class Login extends Component {
       props: {
         loginInProgress,
         loginError,
-
         logoutInProgress,
         logoutError,
         onLogout,
-
         user,
       }
     } = this;
@@ -82,6 +85,7 @@ Login.propTypes = {
   loginError: PropTypes.any.isRequired,
   loginInProgress: PropTypes.bool.isRequired,
   onLogin: PropTypes.func.isRequired,
+  onLook: PropTypes.func,
 
   logoutError: PropTypes.any.isRequired,
   logoutInProgress: PropTypes.bool.isRequired,
@@ -105,12 +109,17 @@ const mapDispatchToProps = dispatch => ({
     dispatch(login(email, password));
   },
   onLogout() {
-      dispatch(logout());
+    dispatch(logout());
   },
+
+  onLook(){
+    dispatch(lookForUser());
+  },
+
   dispatch,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(withAuth(Login));
 // export default AuthHoC;
 
 

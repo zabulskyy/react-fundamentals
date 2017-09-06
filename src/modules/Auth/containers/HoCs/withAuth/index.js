@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import * as firebase from 'firebase';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
