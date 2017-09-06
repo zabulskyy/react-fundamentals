@@ -28,19 +28,56 @@ input:focus{
 }
 
 .x-mark{
-  font-size: 15px;
+  font-size: 20px;
   float: right;
   background: none;
   border: none;
-  padding: 3px 7px;
   font-family: sans-serif;
   color: darkred;
   border-radius: 15px;
   cursor: pointer;
 }
 
+
 .x-mark:hover{
   color: red;
+}
+
+.done-mark{
+  font-size: 20px;
+  background: none;
+  border: none;
+  font-family: sans-serif;
+  color: grey;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.done-mark-undone:hover{
+  color: green;
+}
+
+.done-mark-done{
+  color: green;
+}
+
+.done-mark-undone{
+  color: grey;
+}
+
+.edit-mark{
+  font-size: 20px;
+  float: right;
+  background: none;
+  border: none;
+  font-family: sans-serif;
+  color: darkcyan;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.edit-mark:hover{
+  color: darkblue;
 }
 
 .todo-done{
@@ -64,7 +101,7 @@ input:focus{
 .todo-item{
   background: #f3e6e6;
   margin: 7px 0 7px 0;
-  padding: 5px 5px 5px 20px;
+  padding: 5px;
   border: 1px solid darkmagenta;
   border-radius: 15px;
 }

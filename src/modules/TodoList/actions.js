@@ -119,15 +119,16 @@ const update = (todoKey, what) => {
 
     todoRef.once('value').then(snapshot => {
       const oldTodo = snapshot.val();
-    })
-    todoRef.set(
-      Object.assign(oldTodo, what)
-    )
 
-    const todoRefInUser = database.ref('/users/' + userKey + '/todolist/' + todoKey);
-    todoRefInUser.set(
-      Object.assign(oldTodo, what)
-    )
+      todoRef.set(
+        Object.assign(oldTodo, what)
+      )
+
+      const todoRefInUser = database.ref('/users/' + userKey + '/todolist/' + todoKey);
+      todoRefInUser.set(
+        Object.assign(oldTodo, what)
+      )
+    })
   }
 }
 
