@@ -28,7 +28,19 @@ input:focus{
 }
 
 .x-mark{
-  float:right;
+  font-size: 15px;
+  float: right;
+  background: none;
+  border: none;
+  padding: 3px 7px;
+  font-family: sans-serif;
+  color: darkred;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.x-mark:hover{
+  color: red;
 }
 
 .todo-done{
@@ -52,7 +64,7 @@ input:focus{
 .todo-item{
   background: #f3e6e6;
   margin: 7px 0 7px 0;
-  padding: 7px 20px 7px 20px;
+  padding: 5px 5px 5px 20px;
   border: 1px solid darkmagenta;
   border-radius: 15px;
 }
