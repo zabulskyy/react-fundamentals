@@ -8,9 +8,14 @@ class HomePage extends React.Component{
         <h1 className="header-text"> A simple to-do application </h1>
         <h3 className="header-subtext"> Create, save and share your tasks</h3>
         <br/>
-        <Link to="about" className="bttn bttn-primary"> Learn more</Link>
+        <Link to="about" className="header-info">Learn more</Link>.
         <br/>
-        <Link to="todolist" className="bttn bttn-primary"> Let's start</Link>
+        <br/>
+        <Link to="login" className="header-info">Login</Link>
+        or
+        <Link to="register" className="header-info">create account</Link>
+        and
+        <Link to="todolist" className="header-info">go!</Link>
       </div>
 
     );
