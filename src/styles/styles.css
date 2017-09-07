@@ -27,6 +27,7 @@ input:focus{
   border-bottom: 2px solid darkmagenta;
 }
 
+
 .x-mark{
   font-size: 20px;
   float: right;
@@ -80,14 +81,7 @@ input:focus{
   color: darkblue;
 }
 
-.todo-done{
-  color: darkgrey;
-  text-decoration: line-through;
-}
-
 .todo-place-holder{
-  border: 1px solid coral;
-  background: #ffedd8;
   padding: 7px 10px 7px 10px;
   margin-top: 25px;
   border-radius: 15px;
@@ -99,11 +93,41 @@ input:focus{
 }
 
 .todo-item{
-  background: #f3e6e6;
-  margin: 7px 0 7px 0;
-  padding: 5px;
-  border: 1px solid darkmagenta;
-  border-radius: 15px;
+  font-size: 19px;
+  margin-bottom: 15px;
+  border-bottom: 7px solid #cacaff;
+  padding: 4px;
+  background: white;
+}
+
+
+.todo-done{
+  border-bottom: 7px solid #98bf98;
+  text-decoration: line-through;
+}
+
+.todo-input{
+  border: none;
+}
+
+.todo-edit{
+  border-bottom: 7px solid rgb(216, 211, 121);
+}
+
+.clean-input{
+  height: 25px;
+  margin: 0 0 0 30px;
+  border: 0;
+}
+
+.clean-input:active{
+  margin: 0 0 0 30px;
+  border: 0;
+}
+
+.clean-input:focus{
+  margin: 0 0 0 30px;
+  border: 0;
 }
 
 .header-link.active{
@@ -141,7 +165,7 @@ input:focus{
 
 .field{
   border-radius: 0 0 10px 10px;
-  background: #f2f2f2;
+  background: #eef0ff;
   padding: 50px 100px 50px 100px;
 }
 

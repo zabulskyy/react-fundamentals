@@ -6,66 +6,66 @@ class TodoItem extends Component {
 
   onClickRemove = () => {
     const { onRemove } = this.props;
-    var key = this.props.id;
+    const key = this.props.id;
     onRemove(key);
     this.props.onGetTodoList();
   }
 
   onClickDone = () => {
     const { onDone } = this.props;
-    var key = this.props.id;
+    const key = this.props.id;
     onDone(key, this.props.done);
     this.props.onGetTodoList();
   }
+
+  onClickUpdateItem = () => {
+    const key = this.props.id;
+    const { onUpdateItem } = this.props;
+    const text = prompt("Edit task", this.props.text);
+    this.props.onUpdateItem(key, text);
+    this.props.onGetTodoList();
+  }
+
 
   render() {
     const{
       onClickRemove,
       onClickDone,
+      onClickUpdateItem,
       props : {
         done,
         text,
         id,
     }} = this;
 
-
-    return (/*
-      <div className="todo-item">
-        { !this.editMode &&
-          <div>
-            <button onClick={onClickDone} className={done ? "done-mark done-mark-done" : "done-mark done-mark-undone"}>&#10004;</button>
-            <span   className={done ? "todo-done" : "todo-undone"}>{this.props.text}</span>
-            <button className="x-mark" onClick={onClickRemove}>&#10008;</button>
-            <button className="edit-mark" onClick={this.editMode = !this.editMode}>&#10000;</button>
-          </div>
-        }
-
-        { this.editMode &&
-          <div>
-            <input type="text"> </input>
-            <button className="edit-mark">&#9989;</button>
-          </div>
-        }
-      </div>*/
-
+    return (
       <div>
-        <button onClick={onClickDone} className={done ? "done-mark done-mark-done" : "done-mark done-mark-undone"}>&#10004;</button>
-        <span   className={done ? "todo-done" : "todo-undone"}>{this.props.text}</span>
-        <button className="x-mark" onClick={onClickRemove}>&#10008;</button>
-        <button className="edit-mark" /*onClick={this.editMode = !this.editMode}*/>&#10000;</button>
-      </div>
+          <div className={done ? "todo-done todo-item" : "todo-undone todo-item"}>
+            <div onClick={onClickDone} style={{cursor: "pointer"}}>
 
+              <button onClick={onClickDone} className={done ? "done-mark done-mark-done" : "done-mark done-mark-undone"}>&#10004;</button>
+              <span>{this.props.text}</span>
+
+              <button className="x-mark" onClick={onClickRemove}>&#10008;</button>
+              <button onClick={onClickUpdateItem} className="edit-mark">&#10000;</button>
+
+            </div>
+          </div>
+      </div>
     )
   }
 }
 
 const mapStateToProps = state => ({
-   onGetTodoList: PropTypes.func.isRequired,
-   user: state.auth.user,
-   todoList: state.todo.todoList,
+  user: state.auth.user,
+  todoList: state.todo.todoList,
 })
 
 const mapDispatchToProps = dispatch => ({
+  onUpdateItem(key, newText){
+    dispatch(update(key, {text: newText}));
+  },
+
   onRemove(key){
     dispatch(remove(key));
   },
@@ -83,6 +83,7 @@ TodoItem.propTypes = {
   text: PropTypes.string.isRequired,
   onRemove: PropTypes.func.isRequired,
   onDone: PropTypes.func.isRequired,
+  onUpdateItem: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoItem);
