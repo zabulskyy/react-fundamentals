@@ -55,6 +55,8 @@ class TodoList extends Component {
     } = this;
     return (
       <div className="row">
+        <h1 className="header-text">Your to-do list</h1>
+        <h3 className="header-subtext">Type your task and press Enter to submit</h3>
         { user &&
         <div>
           <div>

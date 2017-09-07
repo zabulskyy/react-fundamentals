@@ -5,8 +5,8 @@ class HomePage extends React.Component{
   render(){
     return (
       <div>
-        <h1 className="header-text"> A simple courses application </h1>
-        <h3> Create, delete, save and share your courses</h3>
+        <h1 className="header-text"> A simple to-do application </h1>
+        <h3 className="header-subtext"> Create, save and share your tasks</h3>
         <br/>
         <Link to="about" className="bttn bttn-primary"> Learn more</Link>
         <br/>

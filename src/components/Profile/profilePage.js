@@ -39,7 +39,7 @@ class Profile extends Component{
       <div>
         <div className={user ? '' : 'hide'}>
           <h1 className="header-text">Your profile</h1>
-          {user && <h2>Hello, {user.email}</h2>}
+          {user && <h3 className="header-subtext">Hello, {user.email}</h3>}
           {logoutError && <div>{logoutError.message}</div>}
           <button onClick={onLogout}   type="button"  id="btnLogout"   className={!user ? 'hide' : 'bttn bttn-primary'}>Logout</button>
         </div>
