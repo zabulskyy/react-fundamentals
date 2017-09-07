@@ -58,8 +58,7 @@ class TodoList extends Component {
         { user &&
         <div>
           <div>
-            <input onKeyDown={e => createTaskWithKey(e.keyCode)} placeholder="type your task here..." type="text" ref={setRefInput}></input>
-            <button onClick={createTask} className="bttn bttn-plus" ref={setRefSubmit}>+</button>
+            <input onKeyDown={e => createTaskWithKey(e.keyCode)} placeholder="Type your task here..." type="text" ref={setRefInput}></input>
           </div>
           <div className="todo-place-holder">
               {todoList.map(i => <TodoItem key={i[0]} text={i[1]} done={i[2]} id={i[3]} />)}

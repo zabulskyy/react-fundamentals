@@ -5,9 +5,6 @@ import { Route, withRouter } from 'react-router';
 import withAuthHoC from '../../containers/HoCs/withAuth';
 
 const hasAuth = WrappedComponent => class hasAuth extends Component {
-  static propTypes = {
-    user: PropTypes.object,
-  }
 
   render() {
     return (
@@ -20,6 +17,11 @@ const hasAuth = WrappedComponent => class hasAuth extends Component {
       )}/>
     )
   }
+}
+
+
+hasAuth.propTypes = {
+    user: PropTypes.object,
 }
 
 export default hasAuth;

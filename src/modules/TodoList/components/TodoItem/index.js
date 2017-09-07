@@ -8,14 +8,14 @@ class TodoItem extends Component {
     const { onRemove } = this.props;
     const key = this.props.id;
     onRemove(key);
-    this.props.onGetTodoList();
+    // this.props.onGetTodoList();
   }
 
   onClickDone = () => {
     const { onDone } = this.props;
     const key = this.props.id;
     onDone(key, this.props.done);
-    this.props.onGetTodoList();
+    // this.props.onGetTodoList();
   }
 
   onClickUpdateItem = () => {
@@ -23,7 +23,7 @@ class TodoItem extends Component {
     const { onUpdateItem } = this.props;
     const text = prompt("Edit task", this.props.text);
     this.props.onUpdateItem(key, text);
-    this.props.onGetTodoList();
+    // this.props.onGetTodoList();
   }
 
 
@@ -43,11 +43,11 @@ class TodoItem extends Component {
           <div className={done ? "todo-done todo-item" : "todo-undone todo-item"}>
             <div onClick={onClickDone} style={{cursor: "pointer"}}>
 
-              <button onClick={onClickDone} className={done ? "done-mark done-mark-done" : "done-mark done-mark-undone"}>&#10004;</button>
+              <button onClick={onClickDone} className={done ? "done-mark done-mark-done" : "done-mark done-mark-undone"}>CHECK</button>
               <span>{this.props.text}</span>
 
-              <button className="x-mark" onClick={onClickRemove}>&#10008;</button>
-              <button onClick={onClickUpdateItem} className="edit-mark">&#10000;</button>
+              <button className="x-mark" onClick={onClickRemove}>REMOVE</button>
+              <button onClick={onClickUpdateItem} className="edit-mark">EDIT</button>
 
             </div>
           </div>

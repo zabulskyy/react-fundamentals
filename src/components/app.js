@@ -25,7 +25,7 @@ class App extends React.Component{
 
 App.propTypes = {
   onLook: PropTypes.func,
-  children: PropTypes.object.isRequired,
+  children: PropTypes.object,
 };
 
 const mapDispatchToProps = dispatch => ({

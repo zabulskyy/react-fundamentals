@@ -10,7 +10,7 @@ class HomePage extends React.Component{
         <br/>
         <Link to="about" className="bttn bttn-primary"> Learn more</Link>
         <br/>
-        <Link to="courses" className="bttn bttn-primary"> Let's start</Link>
+        <Link to="todolist" className="bttn bttn-primary"> Let's start</Link>
       </div>
 
     );

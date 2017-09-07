@@ -80,6 +80,7 @@ const push = (todo) => {
     const todoRefInUser = database.ref('/users/' + userKey + '/todolist/' + todoKey);
     todoRefInUser.set(todoObject);
 
+    dispatch(getTodoList());
   }
 }
 
@@ -101,6 +102,8 @@ const remove = (todoKey) => {
     updates["removed"] = true;
     todoRef.update(updates);
     todoRefInUser.update(updates);
+
+    dispatch(getTodoList());
   }
 }
 
@@ -128,7 +131,9 @@ const update = (todoKey, what) => {
       todoRefInUser.set(
         Object.assign(oldTodo, what)
       )
-    })
+    });
+    
+    dispatch(getTodoList());
   }
 }
 
@@ -138,7 +143,8 @@ const updateSuccess = () => ({ type: UPDATE_SUCCESS });
 
 
 // GET DATA
-const getTodoList = () => {
+const getTodoList = () =>{
+
   return (dispatch) => {
     dispatch({ type: GET_TODOLIST });
 

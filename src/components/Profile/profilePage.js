@@ -33,6 +33,8 @@ class Profile extends Component{
     const {
       onClickLogout,
     } = this;
+
+
     return (
       <div>
         <div className={user ? '' : 'hide'}>
@@ -70,4 +72,4 @@ const mapStateToProps = state => ({
   user: state.auth.user,
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(/*hasAuth(*/Profile/*)*/);
