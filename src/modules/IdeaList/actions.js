@@ -148,10 +148,6 @@ const getIdeaList = () =>{
   return (dispatch) => {
     dispatch({ type: GET_IDEALIST });
 
-    if (!firebase.auth().currentUser){
-      return;
-    }
-
     var ownerIdeas = [];
     var worldIdeas = [];
     firebase.database().ref('/idea')
@@ -165,8 +161,7 @@ const getIdeaList = () =>{
                 var id =  elem;
                 var likes = snapshot.val()[elem]["likes"];
                 worldIdeas.push([key, text, likes, id]);
-
-                if (snapshot.val()[elem]["user"] == firebase.auth().currentUser.uid){
+                if (firebase.auth().currentUser && snapshot.val()[elem]["user"] == firebase.auth().currentUser.uid){
                   ownerIdeas.push([key, text, likes, id]);
                 }
               }
