@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { logout } from '../../modules/Auth/actions';
 import * as firebase from 'firebase';
 import hasAuth from '../../modules/Auth/components/hasAuth'
-import withAuthHoC from '../../modules/Auth/containers/HoCs/withAuth';
+import withAuth from '../../modules/Auth/containers/HoCs/withAuth';
 import React, {Component, PropTypes} from 'react';
 
 class Profile extends Component{
@@ -69,7 +69,7 @@ const mapStateToProps = state => ({
   logoutError: state.auth.logoutError,
   logoutInProgress: state.auth.logoutInProgress,
 
-  user: state.auth.user,
+  // user: state.auth.user,
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(/*hasAuth(*/Profile/*)*/);
+export default connect(mapStateToProps, mapDispatchToProps)(withAuth(Profile));

@@ -1,6 +1,6 @@
+import withAuth from '../HoCs/withAuth';
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-
 import { register } from '../../actions';
 
 class Register extends Component {
@@ -76,7 +76,7 @@ const mapStateToProps = state => ({
   registerError: state.auth.registerError,
   registerInProgress: state.auth.registerInProgress,
 
-  user: state.auth.user,
+  // user: state.auth.user,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -86,7 +86,7 @@ const mapDispatchToProps = dispatch => ({
   dispatch,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+export default connect(mapStateToProps, mapDispatchToProps)(withAuth(Register));
 // export default AuthHoC;
 
 

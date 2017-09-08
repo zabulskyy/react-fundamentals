@@ -101,7 +101,7 @@ const mapStateToProps = state => ({
   logoutError: state.auth.logoutError,
   logoutInProgress: state.auth.logoutInProgress,
 
-  user: state.auth.user,
+  // user: state.auth.user,
 })
 
 const mapDispatchToProps = dispatch => ({

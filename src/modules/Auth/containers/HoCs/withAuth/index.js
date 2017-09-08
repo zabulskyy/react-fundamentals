@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import * as firebase from 'firebase';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import hasAuth from '../../../components/hasAuth';
 
 const withAuthHoC = WrappedComponent => class withAuthHoC extends Component{
   constructor(props) {
@@ -27,5 +28,6 @@ const mapStateToProps = state => ({
 
 export default compose(
   connect(mapStateToProps),
+  hasAuth,
   withAuthHoC
 );

@@ -57,7 +57,6 @@ class TodoItem extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.auth.user,
   todoList: state.todo.todoList,
 })
 

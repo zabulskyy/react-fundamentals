@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { compose } from 'redux';
+// import { compose } from 'redux';
 import { Route, withRouter } from 'react-router';
-import withAuthHoC from '../../containers/HoCs/withAuth';
+// import withAuthHoC from '../../containers/HoCs/withAuth';
 
 const hasAuth = WrappedComponent => class hasAuth extends Component {
 
