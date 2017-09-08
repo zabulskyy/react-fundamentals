@@ -11,12 +11,12 @@ class Idea extends Component {
     // this.props.onGetIdeaList();
   }
 
-  onClickDone = () => {
-    const { onDone } = this.props;
-    const key = this.props.id;
-    onDone(key, this.props.done);
-    // this.props.onGetIdeaList();
-  }
+  // onClickLike = () => {
+  //   const { onLike } = this.props;
+  //   const key = this.props.id;
+  //   onLike(key, this.props.liked);
+  //   // this.props.onGetIdeaList();
+  // }
 
   onClickUpdateItem = () => {
     const key = this.props.id;
@@ -30,27 +30,27 @@ class Idea extends Component {
   render() {
     const{
       onClickRemove,
-      onClickDone,
+      // onClickLike,
       onClickUpdateItem,
       props : {
-        done,
+        likes,
         text,
         id,
+        editable,
     }} = this;
 
     return (
       <div>
-          <div className={done ? "idea-done idea-item" : "idea-undone idea-item"}>
-            <div onClick={onClickDone} style={{cursor: "pointer"}}>
-
-              <button onClick={onClickDone} className={done ? "done-mark done-mark-done" : "done-mark done-mark-undone"}>CHECK</button>
-              <span>{this.props.text}</span>
-
-              <button className="x-mark" onClick={onClickRemove}>REMOVE</button>
-              <button onClick={onClickUpdateItem} className="edit-mark">EDIT</button>
-
-            </div>
-          </div>
+        <div className="idea-item">
+          <span className="like-mark">&#9899; {this.props.likes}</span>
+          <span>{this.props.text}</span>
+          { editable &&
+            <button className="x-mark" onClick={onClickRemove}>REMOVE</button>
+          }
+          { editable &&
+            <button onClick={onClickUpdateItem} className="edit-mark">EDIT</button>
+          }
+        </div>
       </div>
     )
   }
@@ -68,9 +68,9 @@ const mapDispatchToProps = dispatch => ({
   onRemove(key){
     dispatch(remove(key));
   },
-  onDone(key, isDone){
-    dispatch(update(key, {done: !isDone}));
-  },
+  // onLike(key, isLiked){
+  //   dispatch(update(key, {liked: !isLiked}));
+  // },
   onGetIdeaList(){
     dispatch(getIdeaList());
   },
@@ -78,11 +78,12 @@ const mapDispatchToProps = dispatch => ({
 });
 
 Idea.propTypes = {
-  done: PropTypes.bool.isRequired,
+  likes: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
   onRemove: PropTypes.func.isRequired,
-  onDone: PropTypes.func.isRequired,
+  editable: PropTypes.bool.isRequired,
   onUpdateItem: PropTypes.func.isRequired,
+  // onLike: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Idea);

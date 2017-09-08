@@ -14,7 +14,8 @@ class Header extends Component{
     return (
       <nav className="header">
         <IndexLink to="/"          className="header-link" activeClassName="active">Home</IndexLink>
-        <Link to="/ideas"          className={user ? "header-link" : "hide"} activeClassName="active">My ideas</Link>
+        <Link to="/worldideas"     className="header-link" activeClassName="active">World ideas</Link>
+        <Link to="/myideas"        className={user ? "header-link" : "hide"} activeClassName="active">My ideas</Link>
         <Link to="/about"          className="header-link" activeClassName="active">About</Link>
         <Link to="/profile"        className={user ? "header-link header-link-right" : "hide"} activeClassName="active">Profile</Link>
         <Link to="/register"       className={user ? "hide" : "header-link header-link-right"} activeClassName="active">Register</Link>

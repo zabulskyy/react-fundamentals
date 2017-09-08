@@ -14,8 +14,6 @@ class HomePage extends React.Component{
         <Link to="login" className="header-info">Login</Link>
         or
         <Link to="register" className="header-info">create account</Link>
-        and
-        <Link to="ideas" className="header-info">go!</Link>
       </div>
 
     );

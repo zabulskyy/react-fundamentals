@@ -30,7 +30,8 @@ const initialState = {
   gettingIdeaListInProgress: false,
   gettingIdeaListError: false,
 
-  ideaList: [],
+  ownerIdeas: [],
+  worldIdeas: [],
 };
 
 const ideaListReducer = (state = initialState, action) => {
@@ -73,7 +74,7 @@ const ideaListReducer = (state = initialState, action) => {
       return Object.assign({}, state, { gettingIdeaListInProgress: false, gettingIdeaListError: true })
 
     case GET_IDEALIST_SUCCESS:
-      return Object.assign({}, state, { gettingIdeaListInProgress: false, ideaList: action.payload  })
+      return Object.assign({}, state, { gettingIdeaListInProgress: false, ownerIdeas: action.payload.ownerIdeas, worldIdeas: action.payload.worldIdeas  })
 
     default:
       return state;
