@@ -1,9 +1,9 @@
 import container from './container';
 import reducer from './reducer';
-import TodoList from './containers/TodoList';
+import IdeaList from './containers/IdeaList';
 
 export default container;
 export {
-  TodoList,
+  IdeaList,
   reducer
 };

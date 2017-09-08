@@ -11,9 +11,9 @@ import {
   UPDATE_FAILURE,
   UPDATE_SUCCESS,
 
-  GET_TODOLIST,
-  GET_TODOLIST_FAILURE,
-  GET_TODOLIST_SUCCESS,
+  GET_IDEALIST,
+  GET_IDEALIST_FAILURE,
+  GET_IDEALIST_SUCCESS,
 } from './constants.js';
 
 const initialState = {
@@ -27,13 +27,13 @@ const initialState = {
   updateInProgress: false,
   updateError: false,
 
-  gettingTodoListInProgress: false,
-  gettingTodoListError: false,
+  gettingIdeaListInProgress: false,
+  gettingIdeaListError: false,
 
-  todoList: [],
+  ideaList: [],
 };
 
-const todoListReducer = (state = initialState, action) => {
+const ideaListReducer = (state = initialState, action) => {
   switch (action.type) {
 
     case PUSH:
@@ -66,18 +66,18 @@ const todoListReducer = (state = initialState, action) => {
       return Object.assign({}, state, { updateInProgress: false });
 
 
-    case GET_TODOLIST:
-      return Object.assign({}, state, { gettingTodoListInProgress: true})
+    case GET_IDEALIST:
+      return Object.assign({}, state, { gettingIdeaListInProgress: true})
 
-    case GET_TODOLIST_FAILURE:
-      return Object.assign({}, state, { gettingTodoListInProgress: false, gettingTodoListError: true })
+    case GET_IDEALIST_FAILURE:
+      return Object.assign({}, state, { gettingIdeaListInProgress: false, gettingIdeaListError: true })
 
-    case GET_TODOLIST_SUCCESS:
-      return Object.assign({}, state, { gettingTodoListInProgress: false, todoList: action.payload  })
+    case GET_IDEALIST_SUCCESS:
+      return Object.assign({}, state, { gettingIdeaListInProgress: false, ideaList: action.payload  })
 
     default:
       return state;
   }
 }
 
-export default todoListReducer;
+export default ideaListReducer;

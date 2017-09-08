@@ -1,7 +1,7 @@
 
 import React, { Component, PropTypes } from 'react';
 
-class TodoList extends Component {
+class IdeaList extends Component {
 
 
   render() {
@@ -13,4 +13,4 @@ class TodoList extends Component {
   }
 }
 
-export default TodoList;
+export default IdeaList;

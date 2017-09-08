@@ -12,9 +12,9 @@ import {
   UPDATE_SUCCESS,
   UPDATE_FAILURE,
 
-  GET_TODOLIST,
-  GET_TODOLIST_FAILURE,
-  GET_TODOLIST_SUCCESS,
+  GET_IDEALIST,
+  GET_IDEALIST_FAILURE,
+  GET_IDEALIST_SUCCESS,
 } from './constants.js';
 
 // hierarchy:
@@ -22,10 +22,10 @@ import {
 users : {
   unikey1 : {
     name : 'kek',
-    todolist : {
-      unikeytodo1,
-      unikeytodo2,
-      unikeytodo3,
+    idealist : {
+      unikeyidea1,
+      unikeyidea2,
+      unikeyidea3,
       ...
     },
     else : { ... }
@@ -34,8 +34,8 @@ users : {
   ...
 }
 
-todo : {
-  unikeytodo1 : {
+idea : {
+  unikeyidea1 : {
     user : unikey1,
     text : 'buy milk',
     done : false,
@@ -49,7 +49,7 @@ todo : {
 
 // PUSH ACTIONS
 /*
-  todo = {
+  idea = {
     text,
     date,
     ...
@@ -58,29 +58,29 @@ todo : {
 
 
 // PUSH
-const push = (todo) => {
+const push = (idea) => {
   return (dispatch) => {
     dispatch({ type: PUSH });
 
     const database = firebase.database();
     const userKey = firebase.auth().currentUser.uid;
-    const text = todo.text;
-    const todoRef = database.ref('/todo/').push();
+    const text = idea.text;
+    const ideaRef = database.ref('/idea/').push();
 
-    const todoObject = {
+    const ideaObject = {
       user : userKey,
       text : text,
       done : false,
       removed : false,
     };
 
-    todoRef.set(todoObject);
+    ideaRef.set(ideaObject);
 
-    const todoKey = todoRef.key;
-    const todoRefInUser = database.ref('/users/' + userKey + '/todolist/' + todoKey);
-    todoRefInUser.set(todoObject);
+    const ideaKey = ideaRef.key;
+    const ideaRefInUser = database.ref('/users/' + userKey + '/idealist/' + ideaKey);
+    ideaRefInUser.set(ideaObject);
 
-    dispatch(getTodoList());
+    dispatch(getIdeaList());
   }
 }
 
@@ -90,20 +90,20 @@ const pushSuccess = () => ({ type: PUSH_SUCCESS });
 
 
 // REMOVE
-const remove = (todoKey) => {
+const remove = (ideaKey) => {
   return (dispatch) => {
     dispatch({ type: REMOVE });
     const database = firebase.database();
     const userKey = firebase.auth().currentUser.uid;
-    const todoRef = database.ref('/todo/' + todoKey);
-    const todoRefInUser = database.ref('/users/' + userKey + '/todolist/' + todoKey);
+    const ideaRef = database.ref('/idea/' + ideaKey);
+    const ideaRefInUser = database.ref('/users/' + userKey + '/idealist/' + ideaKey);
 
     var updates = {};
     updates["removed"] = true;
-    todoRef.update(updates);
-    todoRefInUser.update(updates);
+    ideaRef.update(updates);
+    ideaRefInUser.update(updates);
 
-    dispatch(getTodoList());
+    dispatch(getIdeaList());
   }
 }
 
@@ -113,27 +113,27 @@ const removeSuccess = () => ({ type: REMOVE_SUCCESS });
 
 
 // UPDATE
-const update = (todoKey, what) => {
+const update = (ideaKey, what) => {
   return (dispatch) => {
     dispatch({ type: UPDATE });
     const database = firebase.database();
     const userKey = firebase.auth().currentUser.uid;
-    const todoRef = database.ref('/todo/' + todoKey);
+    const ideaRef = database.ref('/idea/' + ideaKey);
 
-    todoRef.once('value').then(snapshot => {
-      const oldTodo = snapshot.val();
+    ideaRef.once('value').then(snapshot => {
+      const oldIdea = snapshot.val();
 
-      todoRef.set(
-        Object.assign(oldTodo, what)
+      ideaRef.set(
+        Object.assign(oldIdea, what)
       )
 
-      const todoRefInUser = database.ref('/users/' + userKey + '/todolist/' + todoKey);
-      todoRefInUser.set(
-        Object.assign(oldTodo, what)
+      const ideaRefInUser = database.ref('/users/' + userKey + '/idealist/' + ideaKey);
+      ideaRefInUser.set(
+        Object.assign(oldIdea, what)
       )
     });
-    
-    dispatch(getTodoList());
+
+    dispatch(getIdeaList());
   }
 }
 
@@ -143,10 +143,10 @@ const updateSuccess = () => ({ type: UPDATE_SUCCESS });
 
 
 // GET DATA
-const getTodoList = () =>{
+const getIdeaList = () =>{
 
   return (dispatch) => {
-    dispatch({ type: GET_TODOLIST });
+    dispatch({ type: GET_IDEALIST });
 
     if (!firebase.auth().currentUser){
       return;
@@ -154,7 +154,7 @@ const getTodoList = () =>{
 
 
     var newArr = [];
-    firebase.database().ref('/users/' + firebase.auth().currentUser.uid + '/todolist')
+    firebase.database().ref('/users/' + firebase.auth().currentUser.uid + '/idealist')
       .once('value')
       .then(snapshot => {
           for (var elem in snapshot.val()){
@@ -168,16 +168,16 @@ const getTodoList = () =>{
               }
             }
           }
-          dispatch(getTodoListSuccess(newArr));
+          dispatch(getIdeaListSuccess(newArr));
        })
-      .catch(e => dispatch(getTodoListFailure(e)));
+      .catch(e => dispatch(getIdeaListFailure(e)));
 
   }
 }
 
-const getTodoListFailure = error => ({ type: GET_TODOLIST_FAILURE, payload: error });
+const getIdeaListFailure = error => ({ type: GET_IDEALIST_FAILURE, payload: error });
 
-const getTodoListSuccess = array => ({ type: GET_TODOLIST_SUCCESS, payload: array });
+const getIdeaListSuccess = array => ({ type: GET_IDEALIST_SUCCESS, payload: array });
 
 export {
   push,
@@ -192,7 +192,7 @@ export {
   updateSuccess,
   updateFailure,
 
-  getTodoList,
-  getTodoListFailure,
-  getTodoListSuccess,
+  getIdeaList,
+  getIdeaListFailure,
+  getIdeaListSuccess,
 };

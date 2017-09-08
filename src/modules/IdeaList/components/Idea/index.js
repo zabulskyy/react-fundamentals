@@ -1,21 +1,21 @@
 import { connect } from 'react-redux';
-import { getTodoList, remove, update } from '../../actions';
+import { getIdeaList, remove, update } from '../../actions';
 import React, { Component, PropTypes } from 'react';
 
-class TodoItem extends Component {
+class Idea extends Component {
 
   onClickRemove = () => {
     const { onRemove } = this.props;
     const key = this.props.id;
     onRemove(key);
-    // this.props.onGetTodoList();
+    // this.props.onGetIdeaList();
   }
 
   onClickDone = () => {
     const { onDone } = this.props;
     const key = this.props.id;
     onDone(key, this.props.done);
-    // this.props.onGetTodoList();
+    // this.props.onGetIdeaList();
   }
 
   onClickUpdateItem = () => {
@@ -23,7 +23,7 @@ class TodoItem extends Component {
     const { onUpdateItem } = this.props;
     const text = prompt("Edit task", this.props.text);
     this.props.onUpdateItem(key, text);
-    // this.props.onGetTodoList();
+    // this.props.onGetIdeaList();
   }
 
 
@@ -40,7 +40,7 @@ class TodoItem extends Component {
 
     return (
       <div>
-          <div className={done ? "todo-done todo-item" : "todo-undone todo-item"}>
+          <div className={done ? "idea-done idea-item" : "idea-undone idea-item"}>
             <div onClick={onClickDone} style={{cursor: "pointer"}}>
 
               <button onClick={onClickDone} className={done ? "done-mark done-mark-done" : "done-mark done-mark-undone"}>CHECK</button>
@@ -57,7 +57,7 @@ class TodoItem extends Component {
 }
 
 const mapStateToProps = state => ({
-  todoList: state.todo.todoList,
+  ideaList: state.idea.ideaList,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -71,13 +71,13 @@ const mapDispatchToProps = dispatch => ({
   onDone(key, isDone){
     dispatch(update(key, {done: !isDone}));
   },
-  onGetTodoList(){
-    dispatch(getTodoList());
+  onGetIdeaList(){
+    dispatch(getIdeaList());
   },
   dispatch,
 });
 
-TodoItem.propTypes = {
+Idea.propTypes = {
   done: PropTypes.bool.isRequired,
   text: PropTypes.string.isRequired,
   onRemove: PropTypes.func.isRequired,
@@ -85,4 +85,4 @@ TodoItem.propTypes = {
   onUpdateItem: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TodoItem);
+export default connect(mapStateToProps, mapDispatchToProps)(Idea);

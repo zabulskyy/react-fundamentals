@@ -1,17 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { getTodoList, push, remove, update } from '../../actions';
-import TodoItem  from '../../components/TodoItem';
+import { getIdeaList, push, remove, update } from '../../actions';
+import Idea  from '../../components/Idea';
 import hasAuth from '../../../Auth/components/hasAuth';
 import * as firebase from 'firebase';
 
 
-class TodoList extends Component {
+class IdeaList extends Component {
 
   constructor(props){
     super(props);
     this.state = {
-      arrTodoList: [],
+      arrIdeaList: [],
     }
   }
 
@@ -30,7 +30,7 @@ class TodoList extends Component {
     onPush({
       text : task
     });
-    this.props.onGetTodoList();
+    this.props.onGetIdeaList();
   }
 
   createTaskWithKey = (key) => {
@@ -40,7 +40,7 @@ class TodoList extends Component {
   }
 
   componentWillMount(){
-    this.props.onGetTodoList();
+    this.props.onGetIdeaList();
   }
 
   render() {
@@ -51,20 +51,20 @@ class TodoList extends Component {
       setRefSubmit,
       props : {
         user,
-        todoList,
+        ideaList,
       },
     } = this;
     return (
       <div className="row">
-        <h1 className="header-text">Your to-do list</h1>
+        <h1 className="header-text">Your ideas</h1>
         <h3 className="header-subtext">Type your task and press Enter to submit</h3>
         { user &&
         <div>
           <div>
             <input onKeyDown={e => createTaskWithKey(e.keyCode)} placeholder="Type your task here..." type="text" ref={setRefInput}></input>
           </div>
-          <div className="todo-place-holder">
-              {todoList.map(i => <TodoItem key={i[0]} text={i[1]} done={i[2]} id={i[3]} />)}
+          <div className="idea-place-holder">
+              {ideaList.map(i => <Idea key={i[0]} text={i[1]} done={i[2]} id={i[3]} />)}
           </div>
         </div>
         }
@@ -73,26 +73,26 @@ class TodoList extends Component {
   }
 }
 
-TodoList.propTypes = {
-  onGetTodoList: PropTypes.func.isRequired,
-  todoList: PropTypes.array.isRequired,
+IdeaList.propTypes = {
+  onGetIdeaList: PropTypes.func.isRequired,
+  ideaList: PropTypes.array.isRequired,
   onPush: PropTypes.func.isRequired,
   user: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
   //  user: state.auth.user,
-   todoList: state.todo.todoList
+   ideaList: state.idea.ideaList
 })
 
 const mapDispatchToProps = dispatch => ({
   onPush(text){
     dispatch(push(text));
   },
-  onGetTodoList(){
-    dispatch(getTodoList());
+  onGetIdeaList(){
+    dispatch(getIdeaList());
   },
   dispatch,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(hasAuth(TodoList));
+export default connect(mapStateToProps, mapDispatchToProps)(hasAuth(IdeaList));
