@@ -17,45 +17,6 @@ import {
   GET_IDEALIST_SUCCESS,
 } from './constants.js';
 
-// hierarchy:
-/*
-users : {
-  unikey1 : {
-    name : 'kek',
-    idealist : {
-      unikeyidea1,
-      unikeyidea2,
-      unikeyidea3,
-      ...
-    },
-    else : { ... }
-  },
-  unikey2 : {...},
-  ...
-}
-
-idea : {
-  unikeyidea1 : {
-    user : unikey1,
-    text : 'buy milk',
-    done : false,
-    anydata : ...
-  },
-  ...
-}
-*/
-
-
-
-// PUSH ACTIONS
-/*
-  idea = {
-    text,
-    date,
-    ...
-}
-*/
-
 
 // PUSH
 const push = (idea) => {
@@ -170,7 +131,6 @@ const getIdeaList = () =>{
           dispatch(getIdeaListSuccess({ownerIdeas, worldIdeas}));
        })
       .catch(e => dispatch(getIdeaListFailure(e)));
-
   }
 }
 
