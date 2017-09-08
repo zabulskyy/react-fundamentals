@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { getTodoList, push, remove, update } from '../../actions';
 import TodoItem  from '../../components/TodoItem';
-import withAuth from '../../../Auth/containers/HoCs/withAuth';
+import hasAuth from '../../../Auth/components/hasAuth';
 import * as firebase from 'firebase';
 
 
@@ -95,4 +95,4 @@ const mapDispatchToProps = dispatch => ({
   dispatch,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withAuth(TodoList));
+export default connect(mapStateToProps, mapDispatchToProps)(hasAuth(TodoList));

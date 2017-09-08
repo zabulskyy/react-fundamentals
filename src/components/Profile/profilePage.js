@@ -3,7 +3,7 @@ import { logout } from '../../modules/Auth/actions';
 import * as firebase from 'firebase';
 import hasAuth from '../../modules/Auth/components/hasAuth'
 import withAuth from '../../modules/Auth/containers/HoCs/withAuth';
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 
 class Profile extends Component{
 
@@ -72,4 +72,4 @@ const mapStateToProps = state => ({
   // user: state.auth.user,
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withAuth(Profile));
+export default connect(mapStateToProps, mapDispatchToProps)(hasAuth(Profile));

@@ -1,21 +1,21 @@
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 // import { compose } from 'redux';
-import { Route, withRouter } from 'react-router';
-// import withAuthHoC from '../../containers/HoCs/withAuth';
+import { Route, withRouter, browserHistory } from 'react-router';
+import withAuthHoC from '../../containers/HoCs/withAuth';
 
 const hasAuth = WrappedComponent => class hasAuth extends Component {
 
+
+  componentWillMount(){
+      if (!this.props.user)
+        browserHistory.push('/login');
+  }
+
   render() {
-    return (
-      <Route exact path="/" render={() => (
-        this.props.user ? (
-          <WrappedComponent {...this.props} />
-        ) : (
-          <Redirect to="/login"/>
-        )
-      )}/>
-    )
+    return (<WrappedComponent {...this.props} />)
   }
 }
 
@@ -24,4 +24,13 @@ hasAuth.propTypes = {
     user: PropTypes.object,
 }
 
-export default hasAuth;
+
+const mapStateToProps = state => ({
+  user: state.auth.user,
+});
+
+
+export default compose(
+  connect(mapStateToProps),
+  hasAuth
+);

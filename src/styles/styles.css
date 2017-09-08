@@ -20,11 +20,11 @@ input{
 }
 
 input:active{
-  border-bottom: 6px solid #906da9;
+  border-bottom: 6px solid #0046ff;
 }
 
 input:focus{
-  border-bottom: 6px solid #906da9;
+  border-bottom: 6px solid #0046ff;
 }
 
 
@@ -161,7 +161,7 @@ input:focus{
 .header{
   height: 27px;
   padding: 15px 50px 15px 50px;
-  background: linear-gradient(to left, #565f98, #00359a);
+  background: linear-gradient(to right top, #2d3771, #00359a);
   margin-bottom: 15px;
 }
 
