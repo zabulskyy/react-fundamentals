@@ -45,27 +45,13 @@ input:focus{
   color: red;
 }
 
-.done-mark{
-  font-size: 20px;
-  background: none;
+.like-mark{
   border: none;
   font-family: sans-serif;
-  color: grey;
-  padding: 1px 15px 1px 1px;
+  color: magenta;
+  padding: 1px;
   border-radius: 15px;
-  cursor: pointer;
-}
-
-.done-mark-undone:hover{
-  color: green;
-}
-
-.done-mark-done{
-  color: green;
-}
-
-.done-mark-undone{
-  color: grey;
+  margin-right: 20px;
 }
 
 .edit-mark{
@@ -89,23 +75,12 @@ input:focus{
   margin-top: 20px;
 }
 
-.idea-undone{
-  color: black;
-  text-decoration: none;
-}
-
 .idea-item{
   font-size: 19px;
   margin-bottom: 15px;
   border-bottom: 7px solid #cacaff;
-  padding: 8px 4px 8px 20px;
+  padding: 8px 4px 8px 10px;
   background: white;
-}
-
-
-.idea-done{
-  border-bottom: 7px solid #98bf98;
-  text-decoration: line-through;
 }
 
 .idea-input{

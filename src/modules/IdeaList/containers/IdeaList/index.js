@@ -64,7 +64,7 @@ class IdeaList extends Component {
             <input onKeyDown={e => createTaskWithKey(e.keyCode)} placeholder="Type your task here..." type="text" ref={setRefInput}></input>
           </div>
           <div className="idea-place-holder">
-              {ideaList.map(i => <Idea key={i[0]} text={i[1]} done={i[2]} id={i[3]} />)}
+              {ideaList.map(i => <Idea key={i[0]} text={i[1]} likes={i[2]} id={i[3]} editable={true}/>)}
           </div>
         </div>
         }
@@ -82,7 +82,7 @@ IdeaList.propTypes = {
 
 const mapStateToProps = state => ({
   //  user: state.auth.user,
-   ideaList: state.idea.ideaList
+   ideaList: state.idea.ownerIdeas
 })
 
 const mapDispatchToProps = dispatch => ({

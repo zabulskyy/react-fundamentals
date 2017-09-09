@@ -5,7 +5,7 @@ import HomePage from './components/Home/homePage';
 import AboutPage from './components/About/aboutPage';
 import ProfilePage from './components/Profile/profilePage';
 
-import { IdeaList } from './modules/IdeaList';
+import { IdeaList, WorldIdeas } from './modules/IdeaList';
 import Auth, { Login, Register } from './modules/Auth';
 
 
@@ -15,7 +15,8 @@ export default (
     <IndexRoute component={HomePage}/>  // /
     <Route path="about" component={AboutPage}/>
     <Route path="profile" component={ProfilePage}/>
-    <Route path="ideas" component={IdeaList}/>
+    <Route path="myideas" component={IdeaList}/>
+    <Route path="worldideas" component={WorldIdeas}/>
     <Route path="login" component={Auth}>
       <IndexRoute component={Login} />  // /login
     </Route>

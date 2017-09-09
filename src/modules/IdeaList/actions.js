@@ -17,45 +17,6 @@ import {
   GET_IDEALIST_SUCCESS,
 } from './constants.js';
 
-// hierarchy:
-/*
-users : {
-  unikey1 : {
-    name : 'kek',
-    idealist : {
-      unikeyidea1,
-      unikeyidea2,
-      unikeyidea3,
-      ...
-    },
-    else : { ... }
-  },
-  unikey2 : {...},
-  ...
-}
-
-idea : {
-  unikeyidea1 : {
-    user : unikey1,
-    text : 'buy milk',
-    done : false,
-    anydata : ...
-  },
-  ...
-}
-*/
-
-
-
-// PUSH ACTIONS
-/*
-  idea = {
-    text,
-    date,
-    ...
-}
-*/
-
 
 // PUSH
 const push = (idea) => {
@@ -69,9 +30,9 @@ const push = (idea) => {
 
     const ideaObject = {
       user : userKey,
-      text : text,
-      done : false,
+      text : text.trim(),
       removed : false,
+      likes : 0,
     };
 
     ideaRef.set(ideaObject);
@@ -148,36 +109,34 @@ const getIdeaList = () =>{
   return (dispatch) => {
     dispatch({ type: GET_IDEALIST });
 
-    if (!firebase.auth().currentUser){
-      return;
-    }
-
-
-    var newArr = [];
-    firebase.database().ref('/users/' + firebase.auth().currentUser.uid + '/idealist')
+    var ownerIdeas = [];
+    var worldIdeas = [];
+    firebase.database().ref('/idea')
       .once('value')
       .then(snapshot => {
           for (var elem in snapshot.val()){
             if (!snapshot.val()[elem]["removed"]){
               var text = snapshot.val()[elem]["text"];
               if (text){
-                var done = snapshot.val()[elem]["done"];
                 var key =  elem;
                 var id =  elem;
-                newArr.push([key, text, done, id]);
+                var likes = snapshot.val()[elem]["likes"];
+                worldIdeas.push([key, text, likes, id]);
+                if (firebase.auth().currentUser && snapshot.val()[elem]["user"] == firebase.auth().currentUser.uid){
+                  ownerIdeas.push([key, text, likes, id]);
+                }
               }
             }
           }
-          dispatch(getIdeaListSuccess(newArr));
+          dispatch(getIdeaListSuccess({ownerIdeas, worldIdeas}));
        })
       .catch(e => dispatch(getIdeaListFailure(e)));
-
   }
 }
 
 const getIdeaListFailure = error => ({ type: GET_IDEALIST_FAILURE, payload: error });
 
-const getIdeaListSuccess = array => ({ type: GET_IDEALIST_SUCCESS, payload: array });
+const getIdeaListSuccess = ({ownerIdeas, worldIdeas}) => ({ type: GET_IDEALIST_SUCCESS, payload: {ownerIdeas, worldIdeas} });
 
 export {
   push,
