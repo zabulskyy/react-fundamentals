@@ -5,17 +5,17 @@ import { login, logout, lookForUser } from '../../actions';
 
 class Login extends Component {
 
-  componentWillMount(){
+  componentWillMount() {
     const { onLook } = this.props;
     onLook();
   }
 
   setRefEmail = (email) => {
     this.email = email;
-  }
+  };
   setRefPassword = (password) => {
     this.password = password;
-  }
+  };
 
 
   onClickLogin = () => {
@@ -25,19 +25,11 @@ class Login extends Component {
 
     onLogin(email, password);
 
-  }
-
-  // onClickLogout = () => {
-  //   const { onLogout } = this.props;
-  //
-  //   onLogout();
-  //
-  // }
+  };
 
   render() {
     const {
       onClickLogin,
-      // onClickLogout,
       setRefEmail,
       setRefPassword,
       props: {
@@ -102,7 +94,7 @@ const mapStateToProps = state => ({
   logoutInProgress: state.auth.logoutInProgress,
 
   // user: state.auth.user,
-})
+});
 
 const mapDispatchToProps = dispatch => ({
   onLogin(email, password) {
@@ -112,7 +104,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(logout());
   },
 
-  onLook(){
+  onLook() {
     dispatch(lookForUser());
   },
 

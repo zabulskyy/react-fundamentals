@@ -1,4 +1,3 @@
-
 import React, { Component, PropTypes } from 'react';
 
 class IdeaList extends Component {
@@ -12,5 +11,6 @@ class IdeaList extends Component {
     );
   }
 }
+
 
 export default IdeaList;

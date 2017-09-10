@@ -1,5 +1,5 @@
 {
-  "name": "pluralsight-redux-starter",
+  "name": "react-fundamentals",
   "version": "1.0.0",
   "scripts": {
     "prestart": "babel-node tools/startMessage.js",
@@ -12,7 +12,7 @@
     "test:watch": "npm run test -- --watch"
   },
   "author": "Cory House",
-  "license": "MIT",
+  "license": "UNLICENSED",
   "dependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-polyfill": "6.8.0",
@@ -77,5 +77,11 @@
   },
   "homepage": "https://github.com/coryhouse/pluralsight-redux-starter#readme",
   "main": "webpack.config.dev.js",
-  "description": ""
+  "description": "test project to dive into reac, redux and firebase fundamentals",
+  "keywords": [
+    "react",
+    "redux",
+    "firebase",
+    "fundamentals"
+  ]
 }

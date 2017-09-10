@@ -1,20 +1,20 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { getIdeaList, push, remove, update } from '../../actions';
-import Idea  from '../../components/Idea';
+import Idea from '../../components/Idea';
 import hasAuth from '../../../Auth/components/hasAuth';
 import * as firebase from 'firebase';
 
 
 class WorldIdeas extends Component {
 
-  componentWillMount(){
+  componentWillMount() {
     this.props.onGetIdeaList();
   }
 
   render() {
     const {
-      props : {
+      props: {
         worldIdeas,
         user,
       },
@@ -26,7 +26,7 @@ class WorldIdeas extends Component {
         <br/>
         <div>
           <div className="idea-place-holder">
-              {worldIdeas.map(i => <Idea key={i[0]} text={i[1]} likes={i[2]} id={i[3]} editable={false}/>)}
+            {worldIdeas.map(i => <Idea key={i[0]} text={i[1]} likes={i[2]} id={i[3]} editable={false}/>)}
           </div>
         </div>
       </div>
@@ -39,12 +39,12 @@ WorldIdeas.propTypes = {
 };
 
 const mapStateToProps = state => ({
-   user: state.auth.user,
-   worldIdeas: state.idea.worldIdeas
+  user: state.auth.user,
+  worldIdeas: state.idea.worldIdeas
 })
 
 const mapDispatchToProps = dispatch => ({
-  onGetIdeaList(){
+  onGetIdeaList() {
     dispatch(getIdeaList());
   },
   dispatch,

@@ -3,7 +3,7 @@ import * as firebase from 'firebase';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
-const withAuthHoC = WrappedComponent => class withAuthHoC extends Component{
+const withAuthHoC = WrappedComponent => class withAuthHoC extends Component {
   constructor(props) {
     super(props);
   }
