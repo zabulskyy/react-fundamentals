@@ -1,3 +1,4 @@
+import * as firebase from 'firebase';
 import { connect } from 'react-redux';
 import { getIdeaList, remove, update } from '../../actions';
 import React, { Component, PropTypes } from 'react';
@@ -26,7 +27,7 @@ class Idea extends Component {
       onClickRemove,
       onClickUpdateItem,
       props: {
-        editable,
+        editable
       }
     } = this;
 

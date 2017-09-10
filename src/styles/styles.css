@@ -136,11 +136,10 @@ input:focus {
   height: 27px;
   padding: 15px 50px 15px 50px;
   background: linear-gradient(to right top, #2d3771, #00359a);
-  margin-bottom: 15px;
 }
 
 .field {
-  border-radius: 0 0 10px 10px;
+  border-bottom: 5px solid #00359a;
   background: #eef0ff;
   padding: 50px 100px 50px 100px;
 }

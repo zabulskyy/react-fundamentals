@@ -36,18 +36,19 @@ class WorldIdeas extends Component {
 
 WorldIdeas.propTypes = {
   worldIdeas: PropTypes.array.isRequired,
+  user: PropTypes.object
 };
 
 const mapStateToProps = state => ({
   user: state.auth.user,
   worldIdeas: state.idea.worldIdeas
-})
+});
 
 const mapDispatchToProps = dispatch => ({
   onGetIdeaList() {
     dispatch(getIdeaList());
   },
-  dispatch,
+  dispatch
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorldIdeas);
