@@ -84,6 +84,7 @@ const ideaListReducer = (state = initialState, action) => {
     case GET_IDEALIST:
       return Object.assign({}, state, { gettingIdeaListInProgress: true });
 
+
     case GET_IDEALIST_FAILURE:
       return Object.assign({}, state, { gettingIdeaListInProgress: false, gettingIdeaListError: true });
 

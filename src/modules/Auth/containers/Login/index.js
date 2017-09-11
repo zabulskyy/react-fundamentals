@@ -5,7 +5,7 @@ import { login, logout, lookForUser } from '../../actions';
 
 class Login extends Component {
 
-  componentWillMount(){
+  componentWillMount() {
     const { onLook } = this.props;
     onLook();
   }
@@ -104,7 +104,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(logout());
   },
 
-  onLook(){
+  onLook() {
     dispatch(lookForUser());
   },
 

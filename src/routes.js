@@ -9,19 +9,18 @@ import { IdeaList, WorldIdeas } from './modules/IdeaList';
 import Auth, { Login, Register } from './modules/Auth';
 
 
-
 export default (
   <Route path="/" component={App}>
-    <IndexRoute component={HomePage}/>  // /
+    <IndexRoute component={HomePage}/> // /
     <Route path="about" component={AboutPage}/>
     <Route path="profile" component={ProfilePage}/>
     <Route path="myideas" component={IdeaList}/>
     <Route path="worldideas" component={WorldIdeas}/>
     <Route path="login" component={Auth}>
-      <IndexRoute component={Login} />  // /login
+      <IndexRoute component={Login}/> // /login
     </Route>
     <Route path="register" component={Auth}>
-      <IndexRoute component={Register}/>  // /register
+      <IndexRoute component={Register}/> // /register
     </Route>
   </Route>
 

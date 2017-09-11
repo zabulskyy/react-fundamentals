@@ -5,30 +5,30 @@ import hasAuth from '../../modules/Auth/components/hasAuth'
 import withAuth from '../../modules/Auth/containers/HoCs/withAuth';
 import React, { Component, PropTypes } from 'react';
 
-class Profile extends Component{
+class Profile extends Component {
 
   constructor(props) {
     super(props);
   }
 
   onClickLogout = () => {
-      const promise = firebase.auth().signOut();
-      promise
-        .then(() => {
-          this.props.dispatch(authActionsSetUser(null));
-        })
-        .catch(e => alert(e.message));
+    const promise = firebase.auth().signOut();
+    promise
+      .then(() => {
+        this.props.dispatch(authActionsSetUser(null));
+      })
+      .catch(e => alert(e.message));
   }
 
-  render(){
+  render() {
     const {
       props: {
         user,
         onLogout,
         logoutInProgress,
         logoutError,
-        }
-      } = this;
+      }
+    } = this;
 
     const {
       onClickLogout,
@@ -41,7 +41,9 @@ class Profile extends Component{
           <h1 className="header-text">Your profile</h1>
           {user && <h3 className="header-subtext">Hello, {user.email}</h3>}
           {logoutError && <div>{logoutError.message}</div>}
-          <button onClick={onLogout}   type="button"  id="btnLogout"   className={!user ? 'hide' : 'bttn bttn-primary'}>Logout</button>
+          <button onClick={onLogout} type="button" id="btnLogout" className={!user ? 'hide' : 'bttn bttn-primary'}>
+            Logout
+          </button>
         </div>
       </div>
     );

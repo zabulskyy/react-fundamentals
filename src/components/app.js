@@ -1,20 +1,20 @@
- // app template used on every page
+// app template used on every page
 import Header from './Common/header';
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { lookForUser } from '../modules/Auth/actions';
 
-class App extends React.Component{
+class App extends React.Component {
 
-  componentWillMount(){
+  componentWillMount() {
     const { onLook } = this.props;
     onLook();
   }
 
-  render(){
+  render() {
     return (
       <div className="container-fluid">
-        <Header />
+        <Header/>
         <div className="field">
           {this.props.children}
         </div>
@@ -29,7 +29,7 @@ App.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  onLook(){
+  onLook() {
     dispatch(lookForUser());
   },
 

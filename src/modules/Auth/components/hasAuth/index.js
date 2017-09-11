@@ -9,20 +9,20 @@ import withAuthHoC from '../../containers/HoCs/withAuth';
 const hasAuth = WrappedComponent => class hasAuth extends Component {
 
 
-  componentWillMount(){
-      if (!this.props.user)
-        browserHistory.push('/login');
+  componentWillMount() {
+    if (!this.props.user)
+      browserHistory.push('/login');
   }
 
   render() {
     return (<WrappedComponent {...this.props} />)
   }
-}
+};
 
 
 hasAuth.propTypes = {
-    user: PropTypes.object,
-}
+  user: PropTypes.object,
+};
 
 
 const mapStateToProps = state => ({

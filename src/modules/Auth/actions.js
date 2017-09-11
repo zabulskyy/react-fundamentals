@@ -18,17 +18,17 @@ import {
 const lookForUser = () => {
   return (dispatch) => {
 
-    firebase.auth().onAuthStateChanged( user => {
+    firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        dispatch(loginSuccess(user))
+        dispatch(loginSuccess(user));
       } else {
-        dispatch(logoutSuccess())
+        dispatch(logoutSuccess());
       }
 
     });
 
-  }
-}
+  };
+};
 
 // LOGIN ACTIONS
 const login = (email, password) => {
@@ -40,8 +40,8 @@ const login = (email, password) => {
     auth.signInWithEmailAndPassword(email, password)
       .then(user => dispatch(loginSuccess(user)))
       .catch(e => dispatch(loginFailure(e)));
-  }
-}
+  };
+};
 
 const loginFailure = error => ({ type: LOGIN_FAILURE, payload: error });
 
@@ -53,10 +53,10 @@ const logout = () => {
     dispatch({ type: LOGOUT });
     const auth = firebase.auth();
     auth.signOut()
-      .then( () => dispatch(logoutSuccess()))
+      .then(() => dispatch(logoutSuccess()))
       .catch(e => dispatch(logoutFailure(e)));
-  }
-}
+  };
+};
 
 const logoutFailure = error => ({ type: LOGOUT_FAILURE, payload: error });
 
@@ -71,8 +71,8 @@ const register = (email, password) => {
     auth.createUserWithEmailAndPassword(email, password)
       .then(user => dispatch(registerSuccess(user)))
       .catch(e => dispatch(registerFailure(e)));
-  }
-}
+  };
+};
 
 const registerFailure = error => ({ type: REGISTER_FAILURE, payload: error });
 
