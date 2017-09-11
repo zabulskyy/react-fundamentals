@@ -11,6 +11,10 @@ import {
   UPDATE_FAILURE,
   UPDATE_SUCCESS,
 
+  LIKE_IDEA,
+  LIKE_IDEA_SUCCESS,
+  LIKE_IDEA_FAILURE,
+
   GET_IDEALIST,
   GET_IDEALIST_FAILURE,
   GET_IDEALIST_SUCCESS,
@@ -67,11 +71,22 @@ const ideaListReducer = (state = initialState, action) => {
       return Object.assign({}, state, { updateInProgress: false });
 
 
+    case LIKE_IDEA:
+      return Object.assign({}, state, { updateInProgress: true, updateError: false });
+
+    case LIKE_IDEA_FAILURE:
+      return Object.assign({}, state, { updateInProgress: false, updateError: action.payload });
+
+    case LIKE_IDEA_SUCCESS:
+      return Object.assign({}, state, { updateInProgress: false });
+
+
     case GET_IDEALIST:
-      return Object.assign({}, state, { gettingIdeaListInProgress: true })
+      return Object.assign({}, state, { gettingIdeaListInProgress: true });
+
 
     case GET_IDEALIST_FAILURE:
-      return Object.assign({}, state, { gettingIdeaListInProgress: false, gettingIdeaListError: true })
+      return Object.assign({}, state, { gettingIdeaListInProgress: false, gettingIdeaListError: true });
 
     case GET_IDEALIST_SUCCESS:
       return Object.assign({}, state, {

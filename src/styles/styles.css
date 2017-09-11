@@ -44,14 +44,37 @@ input:focus {
 }
 
 .like-mark {
+  font-size: 20px;
+  float: right;
+  background: none;
   border: none;
   font-family: sans-serif;
+  color: darkmagenta;
+  border-radius: 15px;
+  padding: 1px 15px 1px 1px;
+  cursor: pointer;
+}
+
+.like-mark:hover {
   color: magenta;
+}
+
+.heart-mark {
+  border: none;
+  font-family: sans-serif;
+  color: #cacaff;
   padding: 1px;
   border-radius: 15px;
   margin-right: 20px;
 }
 
+.heart-mark-liked {
+  color: deeppink;
+}
+
+.heart-mark-owner {
+  color: #00abff;
+}
 .edit-mark {
   font-size: 20px;
   float: right;
@@ -65,7 +88,7 @@ input:focus {
 }
 
 .edit-mark:hover {
-  color: darkblue;
+  color: #00cdcd;
 }
 
 .idea-place-holder {
@@ -80,7 +103,13 @@ input:focus {
   padding: 8px 4px 8px 10px;
   background: white;
 }
+.idea-item-liked {
+  border-bottom: 7px solid deeppink;
+}
 
+.idea-item-owner {
+  border-bottom: 7px solid #00abff;
+}
 .idea-input {
   border: none;
 }

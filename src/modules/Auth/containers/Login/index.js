@@ -51,20 +51,20 @@ class Login extends Component {
           <div className="form-group">
             <label>Email
               <br/>
-              <input className="form-control" type="email" id="txtEmail" ref={setRefEmail}></input>
+              <input className="form-control" type="email" id="txtEmail" ref={setRefEmail}/>
             </label>
           </div>
           <div className="form-group">
             <label>Password
               <br/>
-              <input className="form-control" type="password" id="txtPassword" ref={setRefPassword}></input>
+              <input className="form-control" type="password" id="txtPassword" ref={setRefPassword}/>
             </label>
           </div>
 
           {loginInProgress && <span>login in progress...</span>}
           <br/>
           {loginError && <span>{loginError.message}</span>}
-          {logoutError && <div>{logoutError.message}</div>}
+          {logoutError && <span>{logoutError.message}</span>}
           <button onClick={onClickLogin} type="button" id="btnLogin" className='bttn bttn-primary'>Login</button>
         </div>}
         {user && <button onClick={onLogout} type="button" id="btnLogout" className='bttn bttn-primary'>Logout</button>}
