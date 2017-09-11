@@ -185,12 +185,10 @@ const getIdeaList = () => {
           }
         }
 
-        ownerIdeas = ownerIdeas.sort((a, b) => {
-          return b.likes - a.likes;
-        });
-        worldIdeas = worldIdeas.sort((a, b) => {
-          return b.likes - a.likes;
-        });
+        const sortByLikes = (a, b) => b.likes - a.likes;
+
+        ownerIdeas = ownerIdeas.sort(sortByLikes);
+        worldIdeas = worldIdeas.sort(sortByLikes);
 
         dispatch(getIdeaListSuccess({ ownerIdeas, worldIdeas }));
       })
