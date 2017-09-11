@@ -75,7 +75,6 @@ input:focus {
 .heart-mark-owner {
   color: #00abff;
 }
-
 .edit-mark {
   font-size: 20px;
   float: right;
@@ -104,7 +103,6 @@ input:focus {
   padding: 8px 4px 8px 10px;
   background: white;
 }
-
 .idea-item-liked {
   border-bottom: 7px solid deeppink;
 }
@@ -112,7 +110,6 @@ input:focus {
 .idea-item-owner {
   border-bottom: 7px solid #00abff;
 }
-
 .idea-input {
   border: none;
 }

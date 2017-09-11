@@ -63,6 +63,8 @@ class IdeaList extends Component {
                    ref={setRefInput}></input>
           </div>
           <div className="idea-place-holder">
+            
+          
             {ideaList
               .sort((a, b) => {
                 return b[2] - a[2];

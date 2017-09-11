@@ -7,10 +7,10 @@ class Register extends Component {
 
   setRefEmail = (email) => {
     this.email = email;
-  }
+  };
   setRefPassword = (password) => {
     this.password = password;
-  }
+  };
 
 
   onClickRegister = () => {
@@ -20,7 +20,7 @@ class Register extends Component {
 
     onRegister(email, password);
 
-  }
+  };
 
   render() {
     const {
@@ -57,7 +57,8 @@ class Register extends Component {
           <br/>
           {registerError && <span>{registerError.message}</span>}
           {registerError && <div>{registerError.message}</div>}
-          <button onClick={onClickRegister} type="button" id="btnRegister" className='bttn bttn-primary'>Register</button>
+          <button onClick={onClickRegister} type="button" id="btnRegister" className='bttn bttn-primary'>Register
+          </button>
         </div>}
       </div>
     );
@@ -77,7 +78,7 @@ const mapStateToProps = state => ({
   registerInProgress: state.auth.registerInProgress,
 
   // user: state.auth.user,
-})
+});
 
 const mapDispatchToProps = dispatch => ({
   onRegister(email, password) {
