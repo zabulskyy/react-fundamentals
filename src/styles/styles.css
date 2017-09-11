@@ -1,15 +1,15 @@
-#app{
+#app {
   font: 20px Arial, sans-serif;
   min-width: 550px;
   max-width: 850px;
   margin: 0 auto;
 }
 
-a{
+a {
   text-decoration: none;
 }
 
-input{
+input {
   margin: 10px 0 10px 0;
   background-color: white;
   border: none;
@@ -19,16 +19,15 @@ input{
   width: 100%;
 }
 
-input:active{
+input:active {
   border-bottom: 6px solid #0046ff;
 }
 
-input:focus{
+input:focus {
   border-bottom: 6px solid #0046ff;
 }
 
-
-.x-mark{
+.x-mark {
   font-size: 20px;
   float: right;
   background: none;
@@ -40,21 +39,35 @@ input:focus{
   cursor: pointer;
 }
 
-
-.x-mark:hover{
+.x-mark:hover {
   color: red;
 }
 
-.like-mark{
+.like-mark {
+  font-size: 20px;
+  float: right;
+  background: none;
   border: none;
   font-family: sans-serif;
+  color: darkmagenta;
+  border-radius: 15px;
+  padding: 1px 15px 1px 1px;
+  cursor: pointer;
+}
+.like-mark:hover {
   color: magenta;
+}
+
+.heart-mark {
+  border: none;
+  font-family: sans-serif;
+  color: deeppink;
   padding: 1px;
   border-radius: 15px;
   margin-right: 20px;
 }
 
-.edit-mark{
+.edit-mark {
   font-size: 20px;
   float: right;
   background: none;
@@ -66,16 +79,16 @@ input:focus{
   cursor: pointer;
 }
 
-.edit-mark:hover{
-  color: darkblue;
+.edit-mark:hover {
+  color: #00cdcd;
 }
 
-.idea-place-holder{
-  width:100%;
+.idea-place-holder {
+  width: 100%;
   margin-top: 20px;
 }
 
-.idea-item{
+.idea-item {
   font-size: 19px;
   margin-bottom: 15px;
   border-bottom: 7px solid #cacaff;
@@ -83,36 +96,36 @@ input:focus{
   background: white;
 }
 
-.idea-input{
+.idea-input {
   border: none;
 }
 
-.idea-edit{
+.idea-edit {
   border-bottom: 7px solid rgb(216, 211, 121);
 }
 
-.clean-input{
+.clean-input {
   height: 25px;
   margin: 0 0 0 30px;
   border: 0;
 }
 
-.clean-input:active{
+.clean-input:active {
   margin: 0 0 0 30px;
   border: 0;
 }
 
-.clean-input:focus{
+.clean-input:focus {
   margin: 0 0 0 30px;
   border: 0;
 }
 
-.header-link.active{
+.header-link.active {
   color: ghostwhite;
   text-decoration: none;
 }
 
-.header-link{
+.header-link {
   text-decoration: none;
   padding-right: 20px;
   padding-left: 10px;
@@ -120,33 +133,33 @@ input:focus{
   float: left;
 }
 
-.header-link-right{
+.header-link-right {
   float: right;
 }
 
-.header-link:hover{
-  text-decoration: none;
-  color: ghostwhite;
-}
-.header-link:focus{
+.header-link:hover {
   text-decoration: none;
   color: ghostwhite;
 }
 
-.header{
+.header-link:focus {
+  text-decoration: none;
+  color: ghostwhite;
+}
+
+.header {
   height: 27px;
   padding: 15px 50px 15px 50px;
   background: linear-gradient(to right top, #2d3771, #00359a);
-  margin-bottom: 15px;
 }
 
-.field{
-  border-radius: 0 0 10px 10px;
+.field {
+  border-bottom: 5px solid #00359a;
   background: #eef0ff;
   padding: 50px 100px 50px 100px;
 }
 
-.bttn{
+.bttn {
   margin: 5px;
   display: inline-block;
   padding: 6px 12px;
@@ -164,48 +177,49 @@ input:focus{
   background: #565f98;
 }
 
-.bttn:hover{
-  color: black;
-  text-decoration: none;
-  background: #001742;
-}
-.bttn:focus{
+.bttn:hover {
   color: black;
   text-decoration: none;
   background: #001742;
 }
 
-.bttn-primary{
+.bttn:focus {
+  color: black;
+  text-decoration: none;
+  background: #001742;
+}
+
+.bttn-primary {
   background: #565f98;
   color: white;
 }
 
-.bttn-primary:hover{
+.bttn-primary:hover {
   background: #001742;
-    color: white;
-}
-.bttn-primary:focus{
-  background: #001742;
-    color: white;
+  color: white;
 }
 
+.bttn-primary:focus {
+  background: #001742;
+  color: white;
+}
 
-.header-subtext{
+.header-subtext {
   font-size: 20px;
   color: #817e98;
 }
 
-.header-info{
+.header-info {
   margin: 0 7px;
   font-size: 28px;
   color: #284999;
 }
 
-.header-text{
+.header-text {
   font-size: 35px;
   color: #284999;
 }
 
-.hide{
-  display:none;
+.hide {
+  display: none;
 }
