@@ -6,23 +6,23 @@ import React, { Component, PropTypes } from 'react';
 class Idea extends Component {
 
   onClickRemove = () => {
-    if (!confirm("Are you sure you want to delete " + this.props.text + " ?")) {
+    if (!confirm("Are you sure you want to delete " + this.props.ideaObject.text + " ?")) {
       return;
     }
     const { onRemove } = this.props;
-    const key = this.props.id;
+    const key = this.props.ideaObject.key;
     onRemove(key);
   };
 
   onClickUpdateItem = () => {
-    const key = this.props.id;
+    const key = this.props.ideaObject.key;
     const { onUpdateItem } = this.props;
-    const text = prompt("Edit task", this.props.text);
+    const text = prompt("Edit task", this.props.ideaObject.text);
     onUpdateItem(key, text);
   };
 
   onClickLikeIdea = () => {
-    const key = this.props.id;
+    const key = this.props.ideaObject.key;
     const { onLikeIdea } = this.props;
     onLikeIdea(key);
 
@@ -37,8 +37,9 @@ class Idea extends Component {
       props: {}
     } = this;
 
-    const userIsOwner = this.props.user === firebase.auth().currentUser.uid;
-    const likedByCurrentUser = this.props.likedByCurrentUser;
+    const user = firebase.auth().currentUser.uid;
+    const userIsOwner = this.props.ideaObject.user === user;
+    const likedByCurrentUser = this.props.ideaObject.whoLiked.indexOf(user) !== -1;
 
     let ideaClass = "idea-item";
     let heartClass = "heart-mark";
@@ -54,8 +55,8 @@ class Idea extends Component {
     return (
       <div>
         <div className={ideaClass}>
-          <span className={heartClass}>{this.props.likes} &#10084;</span>
-          <span>{this.props.text}</span>
+          <span className={heartClass}>{this.props.ideaObject.likes} &#10084;</span>
+          <span>{this.props.ideaObject.text}</span>
           {userIsOwner &&
           <button className="x-mark" onClick={onClickRemove}>REMOVE</button>
           }
@@ -94,13 +95,10 @@ const mapDispatchToProps = dispatch => ({
 });
 
 Idea.propTypes = {
-  likes: PropTypes.number.isRequired,
-  text: PropTypes.string.isRequired,
+  ideaObject: PropTypes.object.isRequired,
   onRemove: PropTypes.func.isRequired,
-  user: PropTypes.string.isRequired,
   onUpdateItem: PropTypes.func.isRequired,
   onLikeIdea: PropTypes.func.isRequired,
-  likedByCurrentUser: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Idea);

@@ -170,22 +170,28 @@ const getIdeaList = () => {
     firebase.database().ref('/idea')
       .once('value')
       .then(snapshot => {
-        for (let elem in snapshot.val()) {
-          if (!snapshot.val()[elem]["removed"]) {
-            let text = snapshot.val()[elem]["text"];
-            if (text) {
-              let key = elem;
-              let id = elem;
-              let likes = snapshot.val()[elem]["likes"];
-              let user = snapshot.val()[elem]["user"];
-              let likedByCurrentUser = snapshot.val()[elem]["whoLiked"].indexOf(firebase.auth().currentUser.uid) !== -1;
-              worldIdeas.push([key, text, likes, id, user, likedByCurrentUser]);
-              if (firebase.auth().currentUser && snapshot.val()[elem]["user"] === firebase.auth().currentUser.uid) {
-                ownerIdeas.push([key, text, likes, id, user, likedByCurrentUser]);
-              }
+
+        for (let elementKey in snapshot.val()) {
+          let element = snapshot.val()[elementKey];
+          element.key = elementKey;
+
+
+          if (!element["removed"] && element["text"]) {
+            worldIdeas.push(element);
+
+            if (firebase.auth().currentUser && element["user"] === firebase.auth().currentUser.uid) {
+              ownerIdeas.push(element);
             }
           }
         }
+
+        ownerIdeas = ownerIdeas.sort((a, b) => {
+          return b.likes - a.likes;
+        });
+        worldIdeas = worldIdeas.sort((a, b) => {
+          return b.likes - a.likes;
+        });
+
         dispatch(getIdeaListSuccess({ ownerIdeas, worldIdeas }));
       })
       .catch(e => dispatch(getIdeaListFailure(e)));
