@@ -54,6 +54,7 @@ input:focus {
   padding: 1px 15px 1px 1px;
   cursor: pointer;
 }
+
 .like-mark:hover {
   color: magenta;
 }
