@@ -34,17 +34,27 @@ class Idea extends Component {
       onClickRemove,
       onClickUpdateItem,
       onClickLikeIdea,
-      props: {
-
-      }
+      props: {}
     } = this;
 
     const userIsOwner = this.props.user === firebase.auth().currentUser.uid;
+    const likedByCurrentUser = this.props.likedByCurrentUser;
+
+    let ideaClass = "idea-item";
+    let heartClass = "heart-mark";
+
+    if (userIsOwner) {
+      heartClass += " heart-mark-owner";
+      ideaClass += " idea-item-owner";
+    } else if (likedByCurrentUser) {
+      heartClass += " heart-mark-liked";
+      ideaClass += " idea-item-liked";
+    }
 
     return (
       <div>
-        <div className="idea-item">
-          <span className="heart-mark /*liked or unliked*/">{this.props.likes} &#10084;</span>
+        <div className={ideaClass}>
+          <span className={heartClass}>{this.props.likes} &#10084;</span>
           <span>{this.props.text}</span>
           {userIsOwner &&
           <button className="x-mark" onClick={onClickRemove}>REMOVE</button>
@@ -53,7 +63,7 @@ class Idea extends Component {
           <button onClick={onClickUpdateItem} className="edit-mark">EDIT</button>
           }
           {!userIsOwner &&
-          <button onClick={onClickLikeIdea} className="like-mark">LIKE</button>
+          <button onClick={onClickLikeIdea} className="like-mark">{likedByCurrentUser ? "UNLIKE" : "LIKE"}</button>
           }
         </div>
       </div>
@@ -90,6 +100,7 @@ Idea.propTypes = {
   user: PropTypes.string.isRequired,
   onUpdateItem: PropTypes.func.isRequired,
   onLikeIdea: PropTypes.func.isRequired,
+  likedByCurrentUser: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Idea);

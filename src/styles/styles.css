@@ -61,10 +61,18 @@ input:focus {
 .heart-mark {
   border: none;
   font-family: sans-serif;
-  color: deeppink;
+  color: #cacaff;
   padding: 1px;
   border-radius: 15px;
   margin-right: 20px;
+}
+
+.heart-mark-liked {
+  color: deeppink;
+}
+
+.heart-mark-owner {
+  color: #00abff;
 }
 
 .edit-mark {
@@ -94,6 +102,14 @@ input:focus {
   border-bottom: 7px solid #cacaff;
   padding: 8px 4px 8px 10px;
   background: white;
+}
+
+.idea-item-liked {
+  border-bottom: 7px solid deeppink;
+}
+
+.idea-item-owner {
+  border-bottom: 7px solid #00abff;
 }
 
 .idea-input {

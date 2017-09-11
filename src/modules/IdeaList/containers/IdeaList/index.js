@@ -63,7 +63,7 @@ class IdeaList extends Component {
                    ref={setRefInput}></input>
           </div>
           <div className="idea-place-holder">
-            {ideaList.map(i => <Idea key={i[0]} text={i[1]} likes={i[2]} id={i[3]} user={i[4]}/>)}
+            {ideaList.map(i => <Idea key={i[0]} text={i[1]} likes={i[2]} id={i[3]} user={i[4]} likedByCurrentUser={i[5]}/>)}
           </div>
         </div>
         }

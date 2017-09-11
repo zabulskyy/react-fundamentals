@@ -43,8 +43,10 @@ const push = (idea) => {
     ideaRef.set(ideaObject);
 
     const ideaKey = ideaRef.key;
+
     const ideaRefInUser = database.ref('/users/' + userKey + '/idealist/' + ideaKey);
     ideaRefInUser.set(ideaObject);
+
 
     dispatch(getIdeaList());
   };
@@ -109,7 +111,7 @@ const updateSuccess = () => ({ type: UPDATE_SUCCESS });
 
 
 // LIKE_IDEA
-const likeIdea = (ideaKey, dislike = false) => {
+const likeIdea = (ideaKey) => {
   return (dispatch) => {
 
     dispatch({ type: LIKE_IDEA });
@@ -118,6 +120,7 @@ const likeIdea = (ideaKey, dislike = false) => {
     const ideaRef = database.ref('/idea/' + ideaKey);
 
     ideaRef.once('value').then(snapshot => {
+
       const currentIdea = snapshot.val();
 
       if (userKey === currentIdea["user"]) {
@@ -136,7 +139,6 @@ const likeIdea = (ideaKey, dislike = false) => {
         currentAmountOfLikes--;
         currentPeopleWhoLiked.splice(index, 1);
       }
-
 
       ideaRef.set(
         Object.assign(currentIdea, { likes: currentAmountOfLikes, whoLiked: currentPeopleWhoLiked })
@@ -176,9 +178,10 @@ const getIdeaList = () => {
               let id = elem;
               let likes = snapshot.val()[elem]["likes"];
               let user = snapshot.val()[elem]["user"];
-              worldIdeas.push([key, text, likes, id, user]);
+              let likedByCurrentUser = snapshot.val()[elem]["whoLiked"].indexOf(firebase.auth().currentUser.uid) !== -1;
+              worldIdeas.push([key, text, likes, id, user, likedByCurrentUser]);
               if (firebase.auth().currentUser && snapshot.val()[elem]["user"] === firebase.auth().currentUser.uid) {
-                ownerIdeas.push([key, text, likes, id, user]);
+                ownerIdeas.push([key, text, likes, id, user, likedByCurrentUser]);
               }
             }
           }
