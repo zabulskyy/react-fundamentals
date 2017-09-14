@@ -1,9 +1,15 @@
 import * as firebase from 'firebase';
 import { connect } from 'react-redux';
-import { getIdeaList, remove, update, likeIdea } from '../../actions';
+import { getIdeaList, remove, update, likeIdea, commentIdea } from '../../actions';
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
+
 
 class Idea extends Component {
+
+  setRefComment = (comment) => {
+    this.comment = comment;
+  };
 
   onClickRemove = () => {
     if (!confirm("Are you sure you want to delete " + this.props.ideaObject.text + " ?")) {
@@ -28,12 +34,33 @@ class Idea extends Component {
 
   };
 
+  createCommentWithKey = (key) => {
+    if (key === 13) {
+      const comment = this.comment.value;
+      this.comment.value = '';
+      const { onPushComment } = this.props;
+      onPushComment(
+        this.props.ideaObject.key,
+        comment
+    );
+      this.props.onGetIdeaList();
+    }
+
+  };
+
+  showComment = () => {
+    document.getElementById("comments" + this.props.ideaObject.key).classList.toggle("hide");
+  };
+
 
   render() {
     const {
       onClickRemove,
       onClickUpdateItem,
       onClickLikeIdea,
+      showComment,
+      setRefComment,
+      createCommentWithKey,
       props: {}
     } = this;
 
@@ -59,21 +86,44 @@ class Idea extends Component {
     }
 
     return (
-      <div className={ideaClass}>
-        <div className="idea-actions">
-          <span className={heartClass}>{this.props.ideaObject.likes} &#10084;</span>
-          {userIsOwner &&
-          <button className="x-mark" onClick={onClickRemove}>REMOVE</button>
-          }
-          {userIsOwner &&
-          <button onClick={onClickUpdateItem} className="edit-mark">EDIT</button>
-          }
-          {!userIsOwner && user &&
-          <button onClick={onClickLikeIdea} className="like-mark">{likedByCurrentUser ? "UNLIKE" : "LIKE"}</button>
-          }
-        </div>
-        <div className="idea-container">
-          <span>{this.props.ideaObject.text}</span>
+      <div>
+        <div className={ideaClass}>
+          <div className="idea-actions">
+            <button onClick={onClickLikeIdea} className={heartClass}>{this.props.ideaObject.likes} &#10084;</button>
+            {userIsOwner &&
+            <button className="x-mark" onClick={onClickRemove}>REMOVE</button>
+            }
+            {userIsOwner &&
+            <button onClick={onClickUpdateItem} className="edit-mark">EDIT</button>
+            }
+            {!userIsOwner && user &&
+            <button onClick={onClickLikeIdea} className="like-mark">{likedByCurrentUser ? "UNLIKE" : "LIKE"}</button>
+            }
+            <button onClick={showComment}
+                    className="comments-mark">{this.props.ideaObject.comments.length} &#10078;</button>
+          </div>
+          <div className="idea-place-holder">
+            <span>{this.props.ideaObject.text}</span>
+          </div>
+          <div className="comments-container hide" id={"comments" + this.props.ideaObject.key}>
+            <h3>Comments</h3>
+
+            {this.props.ideaObject.comments.map((i, unikey) =>
+              <div className="comment" key={this.props.ideaObject.key + unikey}>
+                <h4>{i.user}</h4>
+                <p>{i.text}</p>
+              </div>
+            )}
+
+            {user &&
+            <div>
+              <h5 className="comment-text">Leave your opinion</h5>
+              <input onKeyDown={e => createCommentWithKey(e.keyCode)} placeholder="press Enter to submit" type="text"
+                     className="comment-input" ref={setRefComment}/>
+            </div>
+            }
+            {!user && <h5><Link to="/login">login </Link>to leave your comment</h5>}
+          </div>
         </div>
       </div>
     )
@@ -97,6 +147,10 @@ const mapDispatchToProps = dispatch => ({
   },
   onLikeIdea(key) {
     dispatch(likeIdea(key));
+  },
+
+  onPushComment(key, comment) {
+    dispatch(commentIdea(key, comment))
   },
 
   dispatch,
