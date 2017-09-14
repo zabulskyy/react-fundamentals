@@ -1,16 +1,16 @@
 import * as firebase from 'firebase';
 import {
   PUSH,
-  PUSH_SUCCESS,
   PUSH_FAILURE,
+  PUSH_SUCCESS,
 
   REMOVE,
-  REMOVE_SUCCESS,
   REMOVE_FAILURE,
+  REMOVE_SUCCESS,
 
   UPDATE,
-  UPDATE_SUCCESS,
   UPDATE_FAILURE,
+  UPDATE_SUCCESS,
 
   LIKE_IDEA,
   LIKE_IDEA_SUCCESS,
@@ -19,6 +19,10 @@ import {
   GET_IDEALIST,
   GET_IDEALIST_FAILURE,
   GET_IDEALIST_SUCCESS,
+
+  COMMENT_IDEA,
+  COMMENT_IDEA_SUCCESS,
+  COMMENT_IDEA_FAILURE
 } from './constants.js';
 
 
@@ -37,7 +41,11 @@ const push = (idea) => {
       text: text.trim(),
       removed: false,
       likes: 0,
-      whoLiked: [userKey]
+      whoLiked: [userKey],
+      comments: [{
+        text: "this Idea is awesome ❤",
+        user: "administration"
+      }]
     };
 
     ideaRef.set(ideaObject);
@@ -159,6 +167,45 @@ const likeIdeaFailure = error => ({ type: LIKE_IDEA_FAILURE, payload: error });
 const likeIdeaSuccess = () => ({ type: LIKE_IDEA_SUCCESS });
 
 
+// COMMENT_IDEA
+const commentIdea = (ideaKey, comment) => {
+  return (dispatch) => {
+
+    dispatch({ type: COMMENT_IDEA });
+    const database = firebase.database();
+    const userEmail = firebase.auth().currentUser.email;
+    const userKey = firebase.auth().currentUser.uid;
+    const ideaRef = database.ref('/idea/' + ideaKey);
+
+    ideaRef.once('value').then(snapshot => {
+
+      const currentIdea = snapshot.val();
+      let currentComments = snapshot.val().comments;
+
+      currentComments.push({
+        text: comment,
+        user: userEmail
+      });
+
+      ideaRef.set(
+        Object.assign(currentIdea, { comments: currentComments })
+      );
+
+      const ideaRefInUser = database.ref('/users/' + userKey + '/idealist/' + ideaKey);
+      ideaRefInUser.set(
+        Object.assign(currentIdea, { comments: currentComments })
+      );
+    });
+
+    dispatch(getIdeaList());
+  };
+};
+
+const commentIdeaFailure = error => ({ type: COMMENT_IDEA_FAILURE, payload: error });
+
+const commentIdeaSuccess = () => ({ type: COMMENT_IDEA_SUCCESS });
+
+
 // GET DATA
 const getIdeaList = () => {
 
@@ -174,7 +221,6 @@ const getIdeaList = () => {
         for (let elementKey in snapshot.val()) {
           let element = snapshot.val()[elementKey];
           element.key = elementKey;
-
 
           if (!element["removed"] && element["text"]) {
             worldIdeas.push(element);
@@ -223,4 +269,9 @@ export {
   getIdeaList,
   getIdeaListFailure,
   getIdeaListSuccess,
+
+  commentIdea,
+  commentIdeaSuccess,
+  commentIdeaFailure
+
 };

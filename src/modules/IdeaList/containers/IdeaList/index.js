@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { getIdeaList, push, remove, update } from '../../actions';
 import Idea from '../../components/Idea';
 import hasAuth from '../../../Auth/components/hasAuth';
-import * as firebase from 'firebase';
 
 
 class IdeaList extends Component {
@@ -19,9 +18,6 @@ class IdeaList extends Component {
     this.input = input;
   };
 
-  setRefSubmit = (submit) => {
-    this.submit = submit;
-  };
 
   createTask = () => {
     const task = this.input.value;
@@ -60,7 +56,7 @@ class IdeaList extends Component {
         <div>
           <div>
             <input onKeyDown={e => createTaskWithKey(e.keyCode)} placeholder="Type your task here..." type="text"
-                   ref={setRefInput}></input>
+                   ref={setRefInput}/>
           </div>
           <div className="idea-place-holder">
             {ideaList.map(i => <Idea key={i.key} ideaObject={i}/>)}

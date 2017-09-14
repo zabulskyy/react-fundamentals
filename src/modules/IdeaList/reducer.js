@@ -18,6 +18,10 @@ import {
   GET_IDEALIST,
   GET_IDEALIST_FAILURE,
   GET_IDEALIST_SUCCESS,
+
+  COMMENT_IDEA,
+  COMMENT_IDEA_SUCCESS,
+  COMMENT_IDEA_FAILURE
 } from './constants.js';
 
 const initialState = {
@@ -94,6 +98,16 @@ const ideaListReducer = (state = initialState, action) => {
         ownerIdeas: action.payload.ownerIdeas,
         worldIdeas: action.payload.worldIdeas
       });
+
+
+    case COMMENT_IDEA:
+      return Object.assign({}, state, { updateInProgress: true, updateError: false });
+
+    case COMMENT_IDEA_FAILURE:
+      return Object.assign({}, state, { updateInProgress: false, updateError: action.payload });
+
+    case COMMENT_IDEA_SUCCESS:
+      return Object.assign({}, state, { updateInProgress: false });
 
     default:
       return state;
