@@ -42,7 +42,7 @@ class Idea extends Component {
       onPushComment(
         this.props.ideaObject.key,
         comment
-    );
+      );
       this.props.onGetIdeaList();
     }
 
