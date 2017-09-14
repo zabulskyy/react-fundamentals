@@ -37,9 +37,15 @@ class Idea extends Component {
       props: {}
     } = this;
 
-    const user = firebase.auth().currentUser.uid;
-    const userIsOwner = this.props.ideaObject.user === user;
-    const likedByCurrentUser = this.props.ideaObject.whoLiked.indexOf(user) !== -1;
+    let userIsOwner = false;
+    let user = undefined;
+    let likedByCurrentUser = false;
+
+    if (firebase.auth().currentUser) {
+      user = firebase.auth().currentUser.uid;
+      userIsOwner = this.props.ideaObject.user === user;
+      likedByCurrentUser = this.props.ideaObject.whoLiked.indexOf(user) !== -1;
+    }
 
     let ideaClass = "idea-item";
     let heartClass = "heart-mark";
@@ -53,19 +59,21 @@ class Idea extends Component {
     }
 
     return (
-      <div>
-        <div className={ideaClass}>
+      <div className={ideaClass}>
+        <div className="idea-actions">
           <span className={heartClass}>{this.props.ideaObject.likes} &#10084;</span>
-          <span>{this.props.ideaObject.text}</span>
           {userIsOwner &&
           <button className="x-mark" onClick={onClickRemove}>REMOVE</button>
           }
           {userIsOwner &&
           <button onClick={onClickUpdateItem} className="edit-mark">EDIT</button>
           }
-          {!userIsOwner &&
+          {!userIsOwner && user &&
           <button onClick={onClickLikeIdea} className="like-mark">{likedByCurrentUser ? "UNLIKE" : "LIKE"}</button>
           }
+        </div>
+        <div className="idea-container">
+          <span>{this.props.ideaObject.text}</span>
         </div>
       </div>
     )
