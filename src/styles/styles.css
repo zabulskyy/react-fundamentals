@@ -10,6 +10,7 @@ a {
 }
 
 input {
+  border-radius: 5px;
   margin: 10px 0 10px 0;
   background-color: white;
   border: none;
@@ -75,6 +76,7 @@ input:focus {
 .heart-mark-owner {
   color: #5fcccd;
 }
+
 .edit-mark {
   font-size: 20px;
   float: right;
@@ -97,19 +99,23 @@ input:focus {
 }
 
 .idea-item {
+  color: #4a4a4a;
+  border-radius: 5px;
   font-size: 19px;
   margin-bottom: 15px;
-  border-bottom: 7px solid #cacaff;
-  padding: 8px 4px 8px 10px;
+  border-bottom: 5px solid #cacaff;
+  padding: 10px;
   background: white;
 }
+
 .idea-item-liked {
-  border-bottom: 7px solid #ff79ad;
+  border-bottom: 5px solid #ff79ad;
 }
 
 .idea-item-owner {
-  border-bottom: 7px solid #5fcccd;
+  border-bottom: 5px solid #5fcccd;
 }
+
 .idea-input {
   border: none;
 }
@@ -169,6 +175,7 @@ input:focus {
 }
 
 .field {
+  border-radius: 0 0 5px 5px;
   border-bottom: 5px solid #00359a;
   border-radius: 0 0 5px 5px;
   background: #eef0ff;

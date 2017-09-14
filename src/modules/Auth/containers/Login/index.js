@@ -13,6 +13,7 @@ class Login extends Component {
   setRefEmail = (email) => {
     this.email = email;
   };
+
   setRefPassword = (password) => {
     this.password = password;
   };
@@ -61,9 +62,10 @@ class Login extends Component {
             </label>
           </div>
 
-          {loginInProgress && <span>login in progress...</span>}
+          {loginInProgress && <span>Login in progress...</span>}
+          {logoutInProgress && <span>Logging out in progress...</span>}
           <br/>
-          {loginError && <span>{loginError.message}</span>}
+          {loginError && <span className="alert-danger">{loginError.message}</span>}
           {logoutError && <span>{logoutError.message}</span>}
           <button onClick={onClickLogin} type="button" id="btnLogin" className='bttn bttn-primary'>Login</button>
         </div>}
@@ -74,6 +76,7 @@ class Login extends Component {
 }
 
 Login.propTypes = {
+
   loginError: PropTypes.any.isRequired,
   loginInProgress: PropTypes.bool.isRequired,
   onLogin: PropTypes.func.isRequired,
@@ -92,8 +95,6 @@ const mapStateToProps = state => ({
 
   logoutError: state.auth.logoutError,
   logoutInProgress: state.auth.logoutInProgress,
-
-  // user: state.auth.user,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -112,8 +113,3 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withAuth(Login));
-// export default AuthHoC;
-
-
-// export default Login;
-// mapDispatchToProps

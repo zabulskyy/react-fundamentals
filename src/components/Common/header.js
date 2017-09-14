@@ -1,7 +1,7 @@
+import withAuth from '../../modules/Auth/containers/HoCs/withAuth/';
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link, IndexLink } from 'react-router';
-
 
 class Header extends Component {
   constructor(props) {
@@ -28,15 +28,11 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-  user: PropTypes.object,
+  user: PropTypes.object
 };
 
 const mapDispatchToProps = dispatch => ({
-  dispatch,
+  dispatch
 });
 
-const mapStateToProps = state => ({
-  user: state.auth.user,
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(null, mapDispatchToProps)(withAuth(Header));
