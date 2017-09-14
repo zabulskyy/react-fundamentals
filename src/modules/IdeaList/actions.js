@@ -173,14 +173,15 @@ const commentIdea = (ideaKey, comment) => {
 
     dispatch({ type: COMMENT_IDEA });
     const database = firebase.database();
-    const userEmail = firebase.auth().currentUser.email;
-    const userKey = firebase.auth().currentUser.uid;
+    const currentUser = firebase.auth().currentUser;
+    const userEmail = currentUser.email;
+    const userKey = currentUser.uid;
     const ideaRef = database.ref('/idea/' + ideaKey);
 
     ideaRef.once('value').then(snapshot => {
 
       const currentIdea = snapshot.val();
-      let currentComments = snapshot.val().comments;
+      let currentComments = currentIdea.comments;
 
       currentComments.push({
         text: comment,
