@@ -1,4 +1,3 @@
-// app template used on every page
 import Header from './Common/header';
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';

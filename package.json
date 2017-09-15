@@ -11,7 +11,7 @@
     "test": "mocha --reporter progress tools/testSetup.js \"src/**/*.test.js\"",
     "test:watch": "npm run test -- --watch"
   },
-  "author": "Cory House",
+  "author": "Volodymyr Zabulskyy",
   "license": "UNLICENSED",
   "dependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1",

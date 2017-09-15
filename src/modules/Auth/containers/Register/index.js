@@ -43,13 +43,13 @@ class Register extends Component {
           <div className="form-group">
             <label>Email
               <br/>
-              <input className="form-control" type="email" id="txtEmail" ref={setRefEmail}></input>
+              <input className="form-control" type="email" id="txtEmail" ref={setRefEmail}/>
             </label>
           </div>
           <div className="form-group">
             <label>Password
               <br/>
-              <input className="form-control" type="password" id="txtPassword" ref={setRefPassword}></input>
+              <input className="form-control" type="password" id="txtPassword" ref={setRefPassword}/>
             </label>
           </div>
 
@@ -76,8 +76,6 @@ Register.propTypes = {
 const mapStateToProps = state => ({
   registerError: state.auth.registerError,
   registerInProgress: state.auth.registerInProgress,
-
-  // user: state.auth.user,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -88,8 +86,3 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withAuth(Register));
-// export default AuthHoC;
-
-
-// export default Login;
-// mapDispatchToProps

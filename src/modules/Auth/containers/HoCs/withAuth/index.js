@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import * as firebase from 'firebase';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
@@ -14,16 +13,13 @@ const withAuthHoC = WrappedComponent => class withAuthHoC extends Component {
 };
 
 withAuthHoC.propTypes = {
-  user: PropTypes.object,
+  user: PropTypes.object
 };
 
 const mapStateToProps = state => ({
-  user: state.auth.user,
+  user: state.auth.user
 });
-//
-// const mapDispatchToProps = dispatch => ({
-//   dispatch,
-// });
+
 
 export default compose(
   connect(mapStateToProps),
