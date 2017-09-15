@@ -18,7 +18,8 @@ class Idea extends Component {
     const key = this.props.ideaObject.key;
     const { onUpdateItem } = this.props;
     const text = prompt("Edit task", this.props.ideaObject.text);
-    onUpdateItem(key, text);
+    if (text)
+      onUpdateItem(key, text);
   };
 
   onClickLikeIdea = () => {
